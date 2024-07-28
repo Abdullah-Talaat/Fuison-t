@@ -775,7 +775,7 @@ try {
   if (userData) {
     nameInput = userData.name;
     if(userData.proImg != "") imgProUrl = userData.proImg;
-    else imgProUrl = "pro1.jpg";
+    else imgProUrl = "pro1.j  pg";
     uId = userRef.id;
     postsLike = userData.liked;
     clearInluts();
@@ -928,6 +928,18 @@ function logOut() {
   buh.style.display = 'flex';
   clearInluts();
   showPages();
+}
+let userImgUpload = false;
+let imgch = document.querySelector('#imgcu')
+let imgu = document.querySelector('.imgu')
+imgch.onchange = function(){
+  let file = new FileReader();
+  file.readAsDataURL(imgch.files[0]);
+  file.onload = function (){
+    imgu.src = file.result;  
+    imgu.style.display = flex;
+    userImgUpload = true; 
+  }
 }
 
 // متغيرات (تأكد من أن هذه العناصر موجودة في ملف HTML الخاص بك)

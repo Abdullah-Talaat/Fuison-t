@@ -1706,3 +1706,9 @@ margin: 5px 0;
   background:rgba(116, 126, 241, 0.5);
   font-size: 80px;
 }
+.imgchl{
+  padding: 8px 20px;
+  color: #fff ;
+  margin-top: 15px;
+  border: #fff 1.5px dashed;
+}

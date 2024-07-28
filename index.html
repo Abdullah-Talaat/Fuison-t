@@ -25,9 +25,7 @@
 <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-storage-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore-compat.js"></script>
-
  </head>
-  
   <body class="body">
     <section class="over-lay">
       <div class="containerv">
@@ -295,14 +293,32 @@
               </div>
             <div  onclick="upload()" class="upload">
                 <button id="upload" class="uploadbtn">
-                  <p>Upload</p>
-                  <span id="spanS" class="material-symbols-outlined">
-      upload
-      </span>
+                   <p>Upload</p>
+                   <span id="spanS" class="material-symbols-outlined">
+                    upload
+                   </span>
                 </button>
               </div>
             </div>
-      
+                  <div class="nasher">
+              <div class="input"style="display: flex;flex-direction: column">
+ <textarea id="narInpm" class="narinpc" style = "hegh:600px; width: 600px">
+ </textarea>
+   <input type="file" id="imgch" style="display: none">
+   <label for="imgch" class="imgchl">chose image</label>
+   <!--imgch, imgu-->
+   <img class="imgu" style="max-height: 300px;max-width: 300px ;padding-left: 10px ;display: none">
+              </div>
+            <div class="upload">
+                <button id="upload" class="uploadbtn">
+                   <p>Upload</p>
+                   <span id="spanS" class="material-symbols-outlined">
+                    upload
+                   </span>
+                </button>
+              </div>
+            </div>
+  
             
               <div id="posts">
       
