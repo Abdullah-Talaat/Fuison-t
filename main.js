@@ -979,6 +979,55 @@ async function upload() {
     alertt("Element with id 'narInp' or 'nameInput' not found or input value is empty.","red");
   }
 };
+let narInpm = document.getElementById("narInpm");
+async function uploadim(){
+    if (narInpm && narInpm.value.trim() !== "" && nameInput && nameInput.trim() !== ""&& userImgUpload) {
+      let src = "";
+      
+      lodingSean(true);
+      let file = imgch.files[0];
+      
+      if (file) {
+        let storageRef = storage.ref().child(`posts/${file.name}`);
+        try {
+          await storageRef.put(file);
+          src = await storageRef.getDownloadURL();
+          lodingSean(false)
+          alertt(imgProUrl, "green");
+        } catch (error) {
+          lodingSean(false)
+          alertt(`Error is: ${error}`, "red");
+        }
+      } else {
+        lodingSean(false); // تأكد من إيقاف مؤشر التحميل في حالة عدم وجود ملف
+       console.log("Image is not defined"); // استخدام تنبيه بدلاً من console.log
+      }
+      
+      lodingSean(true)
+      let now = new Date();
+      let date = now.getFullYear() + " / " + (now.getMonth() + 1) + " / " + now.getDate();
+    
+      try {
+        const docRef = await db.collection('posts').add({
+                  bodyPost: narInpm.value.replace(/\n/g, '<br>'),
+                  name: nameInput,
+                  likes: 0,
+                  date: date,
+                  coments: [],
+                  proUrl: imgProUrl,
+                  src: src});
+        console.log("Document written with ID: ", docRef.id);
+        fetchPosts(); // تحديث المنشورات بعد إضافة منشور جديد
+        clearInput();
+      } catch (error) {
+        alertt("Error adding document: " + error, "red");
+      } finally {
+        lodingSean(false);
+      }
+    }
+}
+
+
 let sendComentBtn = document.getElementById('sendComentBtn');
 sendComentBtn.onclick = function() {
   
@@ -1080,9 +1129,16 @@ function fetchPosts() {
 document.addEventListener('DOMContentLoaded', (event) => {
   fetchPosts();
 });
+let imgDisplay;
 function showPost(posts) {
   let postn = "";
   for (let i = 0; i < posts.length; i++){
+    if (posts[i].src) {
+      imgDisplay = "flex";
+    }
+    else{
+      imgDisplay = "none";
+    }
     let comentsLength = posts[i].coments ? posts[i].coments.length : 0;
     postn += `
   <div class="nasher post">
@@ -1098,6 +1154,9 @@ function showPost(posts) {
                               </div>
                               <div class="post-info">
                                 <p>${posts[i].bodyPost}</p>
+                                 <div class="imgp">
+                                   <img src="${posts[i].src}" alt="" style="display:${imgDisplay}">
+                                </div>
                               </div>
                               <div class="chosesec">
                                 <div class="upload like choke" onclick="deletePost('${posts[i].id}')">
@@ -1132,6 +1191,8 @@ function showPost(posts) {
 
 function clearInput() {
   narInp.value = "";
+  narInpm.value = "";
+  imgu.style.display = "none";
 }
 
 function com(index) {
@@ -1224,6 +1285,12 @@ function searcher(value) {
       let postName = posts[i].name ? posts[i].name.trim().toLowerCase() : "";
       let postBody = posts[i].bodyPost ? posts[i].bodyPost.trim().toLowerCase() : "";
       let comentsLength = posts[i].coments ? posts[i].coments.length : 0;
+          if (posts[i].src) {
+            imgDisplay = "flex";
+          }
+          else {
+            imgDisplay = "none";
+          }
       if (postName.includes(value.trim().toLowerCase()) || postBody.includes(value.trim().toLowerCase())) {
         found = true;
         postn += `
@@ -1285,6 +1352,12 @@ function searchere(value) {
         let postName = posts[i].name ? posts[i].name.trim().toLowerCase() : "";
         let postBody = posts[i].bodyPost ? posts[i].bodyPost.trim().toLowerCase() : "";
         comentsLength = posts[i].coments ? posts[i].coments.length : 0;
+            if (posts[i].src) {
+              imgDisplay = "flex";
+            }
+            else {
+              imgDisplay = "none";
+            }
         if (postName.includes(value.trim().toLowerCase()) || postBody.includes(value.trim().toLowerCase())) {
           found = true;
           searchPost += `
@@ -1335,6 +1408,12 @@ function searchere(value) {
       for (let i = 0; i < posts.length; i++) {
         let postName = posts[i].name ? posts[i].name.trim().toLocaleLowerCase() : "";
         comentsLength = posts[i].coments ? posts[i].coments.length : 0;
+            if (posts[i].src) {
+              imgDisplay = "flex";
+            }
+            else {
+              imgDisplay = "none";
+            }
         if (postName.includes(value.trim().toLocaleLowerCase())) {
           foundName = true;
           searchPost += `
@@ -1385,6 +1464,12 @@ function searchere(value) {
       for (let i = posts.length - 1; i >= 0; i--) {
         let postBody = posts[i].bodyPost ? posts[i].bodyPost.trim().toLocaleLowerCase() : "";
         comentsLength = posts[i].coments ? posts[i].coments.length : 0;
+            if (posts[i].src) {
+              imgDisplay = "flex";
+            }
+            else {
+              imgDisplay = "none";
+            }
         if (postBody.includes(value.trim().toLocaleLowerCase())) {
           foundOpject = true;
           searchPost += `       

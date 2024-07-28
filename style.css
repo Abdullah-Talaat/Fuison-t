@@ -1709,6 +1709,16 @@ margin: 5px 0;
 .imgchl{
   padding: 8px 20px;
   color: #fff ;
-  margin-top: 15px;
+  margin: 15px 0;
   border: #fff 1.5px dashed;
 }
+.imgp{
+              display: flex;
+              align-items: center;
+              text-align: center
+            }.imgp img {
+              min-width: 350px;
+              min-height: 300px;
+              max-height: 450px;
+              max-width: 500px
+            }
