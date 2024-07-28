@@ -930,14 +930,14 @@ function logOut() {
   showPages();
 }
 let userImgUpload = false;
-let imgch = document.querySelector('#imgcu')
+let imgch = document.getElementById("imgch")
 let imgu = document.querySelector('.imgu')
 imgch.onchange = function(){
   let file = new FileReader();
   file.readAsDataURL(imgch.files[0]);
   file.onload = function (){
+    imgu.style.display = "flex";
     imgu.src = file.result;  
-    imgu.style.display = flex;
     userImgUpload = true; 
   }
 }
