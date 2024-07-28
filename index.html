@@ -1,0 +1,587 @@
+
+<!DOCTYPE html>
+<html onload="likeLoad()" translate="no">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>fusion</title>
+    <!--manifest-->
+    <meta name="them-color" content="rgba(0,0,0,0.5)">
+    <link rel="apple-touch-icon" href="/logo-192x192.png">
+    <link rel="manifest" href="/manifest.json">
+    <!-- Google icons-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <link rel="sourtcut icon" type="image/png" href="logo.png">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    
+    <!-- style -->
+    <link rel="stylesheet" href="style.css">
+    <!-- firebase -->
+
+
+<script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-storage-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore-compat.js"></script>
+
+ </head>
+  
+  <body class="body">
+    <section class="over-lay">
+      <div class="containerv">
+        <div class="📦"></div>
+        <div class="📦"></div>
+        <div class="📦"></div>
+        <div class="📦"></div>
+        <div class="📦"></div>
+      </div>
+   </section>
+    <div class="load-screan-Api" id="lA">
+      <span class="loader2"></span>
+    </div>
+    <div class="bhu">
+      <div class="user-pages">
+        <div class="pages-sh">
+         <!-- <div class="pages">
+            <div class="image-page">
+              <img src="pro1.jpeg" alt="">
+            </div>
+            <div class="info-page">
+              <p class="p-name-page">test</p>
+              <p class="p-id-page">testtes</p>
+            </div>
+          </div> -->
+       </div>
+        <button class="colse-pages">close</button>
+      </div>
+    </div>
+    <section class="senah">
+         <span class="loader-senah loader"></span>
+         <div class="senah-msg">
+           <p>جاري الصاينه</p>
+        </div>
+    </section>
+       <!-- head--> 
+    <header class="header">
+      <div class="sl">
+        <div onclick="logo()"class="logo" id="g">
+          <span onclick="logo()" id="hh">fu</span>
+          <span id="span">SioN</span>
+       </div>
+      <div class="search">
+       <input onkeyup="searcher(this.value)" type="text" id="seach" placeholder="search in fusion">
+       <button onclick="openSearch()">
+        <span class="material-symbols-outlined search-icon">
+         search
+        </span>
+       </button>
+      </div>
+     </div>
+     <div class="nav">
+      <span onclick="n44()" class="material-symbols-outlined nave naveev" id="n1">
+        question_mark
+      </span>
+      <span onclick="n33()" class="material-symbols-outlined nave naveev" id="n2">
+        <img  src = "plasten.png" alt="">
+      </span>
+      <span onclick="n22()" class="material-symbols-outlined nave naveev" id="n3">
+        search
+      </span>
+      <span onclick="n11()" class="material-symbols-outlined nave naveev" id="n4">
+        home
+      </span>
+     </div>
+     <div class="profile-icons">
+      <div class="icons-pro">
+        <div class="profile">
+         <div class="pi2" >
+          <button id="pi" onclick="toggleMode()" class="material-symbols-outlined pi pp">
+           dark_mode
+         </button>
+        </div>
+        <div class="pi3">
+          <button onclick="getMenuMood()" class="material-symbols-outlined meno pp">
+            menu
+          </button>
+        </div>
+      </div>
+      <div onclick="toPlasten()"  class="profile1 pi4">
+        <span class="pspan">.</span>
+        <img load="lazy"  src = "pro1.jpg" alt="">
+      </div>
+      </div>
+     </div>
+    </header>
+    <div class="container">
+     <!--left-->
+      <div class="left-s"><div class="p"></div>
+       <hr class="hsr">
+       <div class="containerq">
+        <div class="friendship-requests">
+          <div class="title">
+            <h1 class="w">Friendship Requests</h1>
+            <button onclick="showAll()" class="shoog" id = "showAll">Show All</button>
+          </div>
+          <div class="hab">
+           <a href="#">
+            <div class="pro-frende r1">
+             <div class="info">
+                <p class="infoo">Abdullah Talaat</p>
+               </div>
+              <div class="imge-pro">
+                <img load="lazy"  src = "pro1.jpg" alt="">
+             </div>
+           </a>
+           <div class="buttons">
+            <button id="btn1" onclick="delet(r1)">Delete</button>
+            <button id="btn2">Confer</button>
+          </div>
+        </div>
+               <a href="#">
+                 <div class="pro-frende r2">
+                   <div class="info">
+                     <p class="infooo">Abdullah Talaat</p>
+                   </div>
+                   <div class="imge-pro">
+                     <img load="lazy"  src = "pro1.jpg" alt="">
+                   </div>
+               </a>
+               <div class="buttons">
+                 <button id="btn1" onclick="delet(r2)">Delete</button>
+                 <button id="btn2">Confer</button>
+               </div>
+               </div>
+                        <a href="#">
+                 <div class="pro-frende r10">
+                   <div class="info">
+                     <p class="infoooo">Abdullah Talaat</p>
+                   </div>
+                   <div class="imge-pro">
+                     <img load="lazy"  src = "pro1.jpg" alt="">
+                   </div>
+               </a>
+               <div class="buttons">
+                 <button id="btn1" onclick="delet(r10)">Delete</button>
+                 <button id="btn2">Confer</button>
+               </div>
+               </div>
+      
+                  </div>
+             </div>
+             <div class="contacts">
+               <hr>
+                   <div class="title">
+                     <div class="info">
+            <h1 class="w bbh">Contacts</h1>
+                     </div>
+            <div class="buttt">
+                  <button class="w bbbbh material-symbols-outlined">
+        search 
+            </button>
+            <button class="w bbbh material-symbols-outlined">
+              more_horiz 
+            </button>
+            </div>
+          </div>
+          <div class="pross">
+            <div class="iamgss">
+              <div class="info"><p>Abdullah Talaat</p></div>
+            <div class="imge-pro">
+              <img load="lazy"  src = "pro1.jpg" alt="">
+              <span class="sss"> </span>
+            </div>
+            </div>
+                  <div class="iamgss">
+              <div class="info"><p>Abdullah Talaat</p></div>
+            <div class="imge-pro">
+              <img load="lazy"  src = "pro1.jpg" alt="">
+              <span class="sss"> </span>
+            </div>
+            </div>
+                  <div class="iamgss">
+              <div class="info"><p>Abdullah Talaat</p></div>
+            <div class="imge-pro">
+              <img load="lazy"  src = "pro1.jpg" alt="">
+              <span class="sss"> </span>
+            </div>
+            </div>
+                  <div class="iamgss">
+              <div class="info"><p>Abdullah Talaat</p></div>
+            <div class="imge-pro">
+              <img load="lazy"  src = "pro1.jpg" alt="">
+              <span class="sss"> </span>
+            </div>
+            </div>
+                  <div class="iamgss">
+              <div class="info"><p>Abdullah Talaat</p></div>
+            <div class="imge-pro">
+              <img load="lazy"  src = "pro1.jpg" alt="">
+              <span class="sss"></span>
+            </div>
+            </div>
+                        <div class="iamgss">
+              <div class="info"><p>Abdullah Talaat</p></div>
+            <div class="imge-pro">
+              <img load="lazy"  src = "pro1.jpg" alt="">
+              <span class="sss"> </span>
+            </div>
+            </div>
+                  <div class="iamgss">
+              <div class="info"><p>Abdullah Talaat</p></div>
+            <div class="imge-pro">
+              <img load="lazy"  src = "pro1.jpg" alt="">
+              <span class="sss"> </span>
+            </div>
+            </div>
+                  <div class="iamgss">
+              <div class="info"><p>Abdullah Talaat</p></div>
+            <div class="imge-pro">
+              <img load="lazy"  src = "pro1.jpg" alt="">
+              <span class="sss"> </span>
+            </div>
+            </div>
+                  <div class="iamgss">
+              <div class="info"><p>Abdullah Talaat</p></div>
+            <div class="imge-pro">
+              <img load="lazy"  src = "pro1.jpg" alt="">
+              <span class="sss"></span>
+            </div>
+            </div>
+                  <div class="iamgss">
+              <div class="info"><p>Abdullah Talaat</p></div>
+            <div class="imge-pro">
+              <img load="lazy"  src = "pro1.jpg" alt="">
+              <span class="sss"> </span>
+            </div>
+            </div>
+                  <div class="iamgss">
+              <div class="info"><p>Abdullah Talaat</p></div>
+            <div class="imge-pro">
+              <img load="lazy"  src = "pro1.jpg" alt="">
+              <span class="sss"> </span>
+            </div>
+            </div>
+                  <div class="iamgss">
+              <div class="info"><p>Abdullah Talaat</p></div>
+            <div class="imge-pro">
+              <img load="lazy"  src = "pro1.jpg" alt="">
+              <span class="sss"> </span>
+            </div>
+            </div>
+                  <div class="iamgss">
+              <div class="info"><p>Abdullah Talaat</p></div>
+            <div class="imge-pro">
+              <img load="lazy"  src = "pro1.jpg" alt="">
+              <span class="sss"></span>
+            </div>
+            </div>
+      
+          </div>
+             </div>
+          </div>
+        
+        </div>
+        <!--made-->
+        <div class="made-s">
+          <!--home-->
+          <div id="home">
+            <div class="containerq rrt">
+            <div class="nasher">
+              <div class="input">
+ <textarea id="narInp" class="narinpc" style = "hegh:600px; width: 600px">
+      </textarea>
+              </div>
+            <div  onclick="upload()" class="upload">
+                <button id="upload" class="uploadbtn">
+                  <p>Upload</p>
+                  <span id="spanS" class="material-symbols-outlined">
+      upload
+      </span>
+                </button>
+              </div>
+            </div>
+      
+            
+              <div id="posts">
+      
+              </div>
+      </div>
+            </div>
+          
+      
+          <!--friends-->
+          
+              <div id="friends">
+      <div class="containerq rrrt">
+      <div class="search-box">
+        <div class="input-search">
+          <input  onkeyup="searchere(this.value)" placeholder="search" type="text" class="input-s" name="" id="inputSs">
+        </div>
+        <div class="buttons-search">
+          <button onclick="getSearchMood(this.id)" class="upload" id="byOpject">search by object</button>
+          <button onclick="getSearchMood(this.id)" class="upload" id="byName">search by name</button>
+        </div>
+      </div>
+      <div id="postsSsearch"></div>
+      </div>
+          </div>
+          <!--videos-->
+          <div id="book">
+      <div class="containerq rrrrt">
+        <div class="connect-with-us">
+          <h2 class="title title-q">Social Media</h2>
+          <div class="icons">
+         <a class="fab fa-facebook icon" href="#"></a>
+         <a class="fab fa-instagram icon" href="#"></a>
+         <a class="fab fa-tiktok icon" href="#"></a>
+          </div>
+        </div>
+            <div class="connect-with-us connect-with-uss">
+          <h2 class="title title-q">Or you can come together through</h2>
+          <div class="icons">
+        <a class="fab fa-whatsapp icon" href="#"></a>
+          <a class="fas fa-phone icon" href="#"></a>
+          <a class="fas fa-envelope icon" href="#"></a>
+          </div>
+          
+        </div>
+        
+      </div> 
+          </div>
+          <!--book-->
+          <div id="videos">
+      <div class="containerq rrrrrt">
+        <div class="search-initims">
+          <input type="text" name="" id="inpSI" placeholder="ادخل اسم المنتج">
+          <button id="btnS" onclick="toPlastent()" class="material-symbols-outlined btn-s" >search</button>
+        </div>
+        <div class="monm">
+          <p class="momnm-p"></p>
+        </div>
+      </div>
+            </div>
+          </div>
+        
+        <!--rigt-->
+        <div class="right-s"><div class="p"></div>
+      <!--  <div class="nav-meno">-->
+          <hr class="hsr">
+          <div class="containerq rrrtf">
+            <div id="nee">
+                        <div class="Iamgss nev neev">
+              <div class="info"><p>Abdullah Talaat</p></div>
+            <div class="imge-pro iiimm">
+              <img load="lazy"  src = "pro1.jpg" alt="">
+              <span class="sss"></span>
+            </div>
+            </div>
+                  <div onclick="n11()" class="nas">
+              <div class="info">
+                <p>Home</p>
+              </div>
+              <button class="material-symbols-outlined w" id="n2">
+                home
+              </button>
+            </div>
+                        <div class="nas" onclick="n22()">
+                    <div class="info">
+                      <p>Search</p>
+                    </div>
+                    <button class="material-symbols-outlined w" id="n2">
+                      Search
+                    </button>
+                  </div>
+                        <div class="nas">
+              <div onclick="toPlasten()" class="info">
+                <p>To Plasten</p>
+              </div>
+              <button class="material-symbols-outlined w" id="n2">
+                <img load="lazy"   src = "plasten.png" alt="">
+              </button>
+            </div>
+                        <div class="nas" onclick="n44()">
+                    <div class="info">
+                      <p>About</p>
+                    </div>
+                    <button class="material-symbols-outlined w" id="n2">
+                      question_mark
+                    </button>
+                  </div>
+                  <div class="nas">
+              <div class="info" onclick="toggleMode()">
+              <p class="pMoodWeb">Dark Mood</p></div>
+            <button class="material-symbols-outlined w buttonMoodWeb" id="n2">
+        dark_mode
+            </button>
+            </div>
+      
+            <div class="nas">
+              <div class="info" onclick="logOut()">
+              <p style="color: red">Log out</p></div>
+            <button style="color: red" class="material-symbols-outlined w buttonMoodWeb" id="n2">
+                logout
+            </button>
+          </div>
+      
+      
+      
+      <!--<div class="nas"  onclick="trans()">
+        <div class="info">
+          <p>عربي</p>
+        </div>
+        <button class="material-symbols-outlined w" id="n2">
+          translate
+        </button>
+      </div>-->
+                  <div class="nas">
+              <div class="info">
+                <p date-translates="${this.innerHTML}">Advertising Director</p>
+              </div>
+              <button  class="material-symbols-outlined w" id="n2">
+                grouped_bar_chart
+              </button>
+            </div>
+            <div class="nas">
+              <div class="info">
+                <p date-translates="${this.innerHTML}">Donation campaigns</p>
+              </div>
+              <button class="material-symbols-outlined w" id="n2">
+                volunteer_activism
+              </button>
+            </div>
+            <!-- late -->
+                        <div class="nas">
+              <div class="info">
+                <p date-translates="${this.innerHTML}">Birthdays</p>
+              </div>
+              <button class="material-symbols-outlined w" id="n2">
+                featured_seasonal_and_gifts
+              </button>
+            </div>
+            <div class="nas">
+              <div class="info">
+                <p>Pages</p>
+              </div>
+              <button class="material-symbols-outlined w" id="n2">
+            select_window
+              </button>
+            </div>
+                              <div class="nas">
+              <div class="info">
+                <p>Orders And Payments</p>
+              </div>
+              <button class="material-symbols-outlined w" id="n2">
+                credit_card
+              </button>
+            </div>
+            <div class="nas">
+              <div class="info">
+                <p>Play Games</p>
+              </div>
+              <button class="material-symbols-outlined w" id="n2">
+            stadia_controller
+              </button>
+            </div>
+      
+                        <div class="nas">
+              <div class="info">
+                <p>Messenger</p>
+              </div>
+              <button class="material-symbols-outlined w" id="n2">
+                chat
+              </button>
+            </div>
+            <div class="nas">
+              <div class="info">
+                <p>Messenger Kids</p>
+              </div>
+              <button class="material-symbols-outlined w" id="n2">
+            chat_bubble
+              </button>
+            </div>
+      
+               </div>   
+      <div class="show-alot">
+        <button  id="showAlot"><p id="pS">show more</p></button>
+      </div>
+      
+            
+          </div>
+        
+        </div>
+        </div>
+      
+      
+      <div id="alertt" class="alert">
+        <div class="box">
+        <div class="info-alert"><p id="infoAlertt"></p></div>
+        <button onclick="gg()" class="btn-info">okey</button>
+        </div>
+      </div>
+      
+      
+      
+      <div id="coment" class="coment">
+        <div class="box-coment">
+          <div class="info-coment" id="comentser"></div>
+          <div class="add-coment">
+            <button id="sendComentBtn" class="material-symbols-outlined">send</button>
+            <input type="text" id="sendComent" placeholder="add coment">
+          </div>
+          <button onclick="gggu()" class="btn-coment">close</button>
+        </div>
+      </div>
+      
+      <div class="login">
+      <div class="log"> 
+      <input placeholder="Your email or phone number" type="email" name="" id="nameLog">
+      <!-- nameLog, passwordLog-->
+      <input type="password" placeholder="Your password" id="passwordLog">
+      <div class="show-passord">
+        <label for="checkPassword">show password</label>
+      <input type="checkbox" id="checkPasswordLog"> 
+      </div>
+      <button class="log-sin" id="logSin">Sin up</button>
+      <button  id="logInbtn">Log in</button>  
+          
+      </div>
+      <div class="sin">
+        <label for="profileImageInput" class="material-symbols-outlined lbprofileImageSin">photo_camera</label>
+        <input onclick="getImgProfile()" type="file" id="profileImageInput" style="display: none;">
+        <input type="text" placeholder="name" id="sinUpName">
+      <input type="email" placeholder="Email or Phone number" id="sinUpEmail">
+        <div class="date-sin">
+          <input placeholder="year" type="number" name="" id="dateYearSin">
+          <input  placeholder="month" type="number" name="" id="dateMontheSin">
+          <input placeholder="day"  type="number" name="" id="dateDaySin">
+        </div>
+      <input type="password" placeholder="password" id="passwordSin">
+      <div class="show-passord">
+        <label for="checkPassword">show password</label>
+      <input type="checkbox" id="checkPassword"> 
+      </div>
+      <button class="log-sin" id="sinLog" >log in</button>
+      <button  id="sinUpBtn">Sin up</button>  
+          
+      
+      </div>
+      </div>
+      
+        <!-- script -->
+         <nav class="navbar">
+              <ul class="navbar-menu">
+                 <li onclick="n44()" class="material-symbols-outlined necv nave naveev" id="n24">question_mark</li>
+                  <li onclick="n33()"  class="material-symbols-outlined necv nave naveev" id="n23"><img   src = "plasten.png" alt=""></li>
+                  <li onclick="n22()" class="material-symbols-outlined nave necv naveev" id="n32">search</li>
+                  <li onclick="n11()" class="material-symbols-outlined nave necv naveev" id="n21">home</li>
+           </ul>
+          </nav>
+      <script  src="main.js"></script>
+      <script  src="senah.js"  ></script>
+      <script src = "swr.js"></script>
+      <script src = "toPlasten.js"></script>
+  </body>
+
+</html>
