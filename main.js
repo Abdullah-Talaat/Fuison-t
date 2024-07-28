@@ -775,7 +775,7 @@ try {
   if (userData) {
     nameInput = userData.name;
     if(userData.proImg != "") imgProUrl = userData.proImg;
-    else imgProUrl = "pro1.jpeg";
+    else imgProUrl = "pro1.jpg";
     uId = userRef.id;
     postsLike = userData.liked;
     clearInluts();
@@ -847,9 +847,11 @@ if (passwordLog.value.trim() !== "" && nameLog.value.trim() !== "") {
         userLogin = true;
         nameInput = user.userDate.name;
         if (user.proImg != "") imgProUrl = user.userDate.proImg;
-        else imgProUrl = "pro1.jpeg";
+        else imgProUrl = "pro1.jpg";
         postsLike = user.userDate.liked;
         uId = user.id;
+        users.push(user);
+        localStorage.setItem("usersvf", JSON.stringify(users));
         break; // الخروج من الحلقة بعد العثور على المستخدم
       }
     }
@@ -901,7 +903,7 @@ function showPages() {
   for (let u = 0; u < users.length; u++) {
     pagesN += `<div class="pages" onclick="loginWithPage(${u})">
                  <div class="image-page">
-                   <img load = "lazy" load = "lazy"" src="pro1.jpeg" alt="">
+                   <img load = "lazy" load = "lazy"" src="${users[u].proImg}" alt="">
                  </div>
                  <div class="info-page">
                    <p class="p-name-page">${users[u].name}</p> 
@@ -911,7 +913,7 @@ function showPages() {
   }
   pagesSh = pagesN;
 }
-
+showPages();
 function loginWithPage(i) {
   nameLog.value = users[i].phone;
   passwordLog.value = users[i].password;
@@ -923,9 +925,9 @@ if (users.length == 1) {
 function logOut() {
   document.querySelector(".login").style = `display:flex `;
   document.querySelector(".navbar").style= `display:none `;
-  
+  buh.style.display = 'flex';
   clearInluts();
-  showPages()
+  showPages();
 }
 
 // متغيرات (تأكد من أن هذه العناصر موجودة في ملف HTML الخاص بك)
@@ -1064,10 +1066,7 @@ function fetchPosts() {
     });
 }
 document.addEventListener('DOMContentLoaded', (event) => {
-  if(db){
   fetchPosts();
-  showPages();
-  }
 });
 function showPost(posts) {
   let postn = "";
