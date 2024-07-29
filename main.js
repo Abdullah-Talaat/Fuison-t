@@ -580,7 +580,7 @@ function toggleMode() {
   // حفظ الحالة في Local Storage
   localStorage.setItem("isDarkMode", isDarkMode);
 }
-let bhu = document.querySelector(".bhu");
+let bhu = document.querySelector('.bhu');
 // استعادة الحالة عند تحميل الصفحة
 window.onload = function() {
   n11()
@@ -669,7 +669,10 @@ const storage = firebase.storage();
 
 let imgProUrl = "pro1.jpeg";
 let fileImgPro = document.getElementById("profileImageInput");
-
+/*lbprofileImageSin box-img-sin*/
+let lbprofileImageSin = document.querySelector('.lbprofileImageSin');
+let boximgsinImg = document.querySelector('.box-img-sin img')
+let boximgsin = document.querySelector('.box-img-sin')
 async function getImgProfile() {
   lodingSean(true);
   let file = fileImgPro.files[0];
@@ -679,6 +682,10 @@ async function getImgProfile() {
     try {
       await storageRef.put(file);
       imgProUrl = await storageRef.getDownloadURL();
+      boximgsinImg.src = imgProUrl;
+      
+      lbprofileImageSin.style.display = "none";
+      boximgsin.style.display = "flex";
       lodingSean(false);
       alertt(imgProUrl, "green");
     } catch (error) {
@@ -694,6 +701,7 @@ let users = JSON.parse(localStorage.getItem("usersvf")) || [];
 let usersf = [];
 let uId;
 let postsLike;
+let trueU;
 async function sinUp() {
   if (
     sinUpName.value.trim() !== "" &&
@@ -758,7 +766,8 @@ for (let i = 0; i < usersf.length; i++) {
         phone: sinUpEmail.value.trim(),
         password: passwordSin.value.trim(),
         proImg: imgProUrl,
-        liked: []
+        liked: [],
+        ture:false
       };
 
 lodingSean(true);
@@ -775,9 +784,10 @@ try {
   if (userData) {
     nameInput = userData.name;
     if(userData.proImg != "") imgProUrl = userData.proImg;
-    else imgProUrl = "pro1.j  pg";
+    else imgProUrl = "pro1.jpeg";
     uId = userRef.id;
     postsLike = userData.liked;
+    trueU = userData.ture;
     clearInluts();
     showApp();
     alertt(`Hello ${userData.name}`, "green");
@@ -850,8 +860,9 @@ if (passwordLog.value.trim() !== "" && nameLog.value.trim() !== "") {
         else imgProUrl = "pro1.jpg";
         postsLike = user.userDate.liked;
         uId = user.id;
+        trueU = user.userDate.ture;
         users.push(user);
-        localStorage.setItem("usersvf", JSON.stringify(users));
+        localStorage.setItem('usersvf', JSON.stringify(users));
         break; // الخروج من الحلقة بعد العثور على المستخدم
       }
     }
@@ -872,6 +883,7 @@ if (passwordLog.value.trim() !== "" && nameLog.value.trim() !== "") {
   alertt("Fill in the field password", "red");
 }
 }
+
 let logInbtn = document.getElementById("logInbtn")
 sinUpBtn.onclick = function() {
   sinUp()
@@ -959,7 +971,8 @@ async function upload() {
       likes: 0,
       date: date,
       coments: [],
-      proUrl: imgProUrl
+      proUrl: imgProUrl,
+      trueP: trueU,
     };
     console.log (`${narInp.value}/${nameInput}`)
     lodingSean(true);
@@ -981,7 +994,7 @@ async function upload() {
 };
 let narInpm = document.getElementById("narInpm");
 async function uploadim(){
-    if (narInpm && narInpm.value.trim() !== "" && nameInput && nameInput.trim() !== ""&& userImgUpload) {
+    if (nameInput && nameInput.trim() !== ""&& userImgUpload) {
       let src = "";
       
       lodingSean(true);
@@ -1015,6 +1028,7 @@ async function uploadim(){
                   date: date,
                   coments: [],
                   proUrl: imgProUrl,
+                  trueP:trueU,
                   src: src});
         console.log("Document written with ID: ", docRef.id);
         fetchPosts(); // تحديث المنشورات بعد إضافة منشور جديد
@@ -1025,6 +1039,10 @@ async function uploadim(){
         lodingSean(false);
       }
     }
+    else{
+      
+      alert("hihosh")
+        }
 }
 
 
@@ -1038,7 +1056,8 @@ sendComentBtn.onclick = function() {
       bodyComent: sendComent.value,
       nameComent: nameInput,
       datecoment: dateComentNow,
-      proUrl: imgProUrl
+      proUrl: imgProUrl,
+      trueP: trueU
     };
 
     if (postIndex >= 0 && posts[postIndex]) {
@@ -1070,7 +1089,9 @@ sendComentBtn.onclick = function() {
     
   
 };
+/*
 
+*/
 function showComent() {
   let comentser = document.getElementById("comentser");
   comentser.innerHTML = "";
@@ -1082,11 +1103,16 @@ function showComent() {
       comentser.innerHTML = '<p class="p-nan">لا يوجد تعليقات كون اول من يعلق</p>';
     } else {
       for (let i = 0; i < storedComents.length; i++) {
+      if(storedComents[i].trueP) trueDisplay = "flex";
+      else trueDisplay = "none";
         let comentHTML = `
           <div class="coment1">
             <div class="profile-coment">
-             <img load = "lazy" src="${storedComents[i].proUrl}" alt="">
+              <div class="cimgpd">
+                            <img load="lazy" src="${storedComents[i].proUrl}"/>
+              </div>
               <p class="pro-name-com">${storedComents[i].nameComent}</p>
+              <span class="material-symbols-outlined st" style="display:${trueDisplay}">check</span>
               <p class="comet-date-info">${storedComents[i].datecoment}</p>
             </div>
             <div class="info-txt-com">
@@ -1130,6 +1156,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   fetchPosts();
 });
 let imgDisplay;
+let trueDisplay = "flex";
 function showPost(posts) {
   let postn = "";
   for (let i = 0; i < posts.length; i++){
@@ -1139,6 +1166,8 @@ function showPost(posts) {
     else{
       imgDisplay = "none";
     }
+    if (posts[i].trueP) trueDisplay = "flex";
+    else trueDisplay = "none";
     let comentsLength = posts[i].coments ? posts[i].coments.length : 0;
     postn += `
   <div class="nasher post">
@@ -1149,8 +1178,11 @@ function showPost(posts) {
                                 </div>
                                 <div class="pro-post">
                                   <p>${posts[i].name}</p>
-                                  <img load = "lazy" class="pro-cc" src="${posts[i].proUrl}" alt="">
-                                </div>
+                                  <span class="material-symbols-outlined st" style="display:${trueDisplay}">check</span>
+                                  <div class="pro-ccd">
+                                   <img load = "lazy" class="pro-cc" src="${posts[i].proUrl}" alt="">
+                                  </div>                               
+                              </div>
                               </div>
                               <div class="post-info">
                                 <p>${posts[i].bodyPost}</p>
@@ -1295,40 +1327,45 @@ function searcher(value) {
         found = true;
         postn += `
   <div class="nasher post">
-                                        <div class="head-post">
-                                          <div class="date-info">
-                                            <p class="date">${posts[i].date}</p>
-                                            <p class="material-symbols-outlined date-icon">calendar_month</p>
-                                          </div>
-                                          <div class="pro-post">
-                                            <p>${posts[i].name}</p>
-                                            <img load = "lazy" class="pro-cc" src="${posts[i].proUrl}" alt="">
-                                          </div>
-                                        </div>
-                                        <div class="post-info">
-                                          <p>${posts[i].bodyPost}</p>
-                                        </div>
-                                        <div class="chosesec">
-                                          <div class="upload like choke" onclick="deletePost('${posts[i].id}')">
-                                            <button id="deleteee" class="likee deleteee chokee">
-                                              <p>delete</p>
-                                              <span id="spanS" class="material-symbols-outlined">delete</span>
-                                            </button>
-                                          </div>
-                                          <div class="upload like choke" onclick="com(${i})">
-                                            <button id="like" class="likee lookos chokee">
-                                              <p id="lnn">${comentsLength}</p>
-                                              <span id="spanSs" class="material-symbols-outlined spanS">comment</span>
-                                            </button>
-                                          </div>
-                                          <div class="upload like choke" onclick="likee(${i})">
-                                            <button id="like" class="likee lookos chokee">
-                                              <p id="lnn">${posts[i].likes}</p>
-                                              <span id="spanSs" class="material-symbols-outlined spanS">thumb_up</span>
-                                            </button>
-                                          </div>
-                                        </div>
-                                      </div>
+                                                                    <div class="head-post">
+                                                                      <div class="date-info">
+                                                                        <p class="date">${posts[i].date}</p>
+                                                                        <p class="material-symbols-outlined date-icon">calendar_month</p>
+                                                                      </div>
+                                                                      <div class="pro-post">
+                                                                        <p>${posts[i].name}</p>
+                                                                        <div class="pro-ccd">
+                                                                         <img load = "lazy" class="pro-cc" src="${posts[i].proUrl}" alt="">
+                                                                        </div>                               
+                                                                    </div>
+                                                                    </div>
+                                                                    <div class="post-info">
+                                                                      <p>${posts[i].bodyPost}</p>
+                                                                       <div class="imgp">
+                                                                         <img src="${posts[i].src}" alt="" style="display:${imgDisplay}">
+                                                                      </div>
+                                                                    </div>
+                                                                    <div class="chosesec">
+                                                                      <div class="upload like choke" onclick="deletePost('${posts[i].id}')">
+                                                                        <button id="deleteee" class="likee deleteee chokee">
+                                                                          <p>delete</p>
+                                                                          <span id="spanS" class="material-symbols-outlined">delete</span>
+                                                                        </button>
+                                                                      </div>
+                                                                      <div class="upload like choke" onclick="com(${i})">
+                                                                        <button id="like" class="likee lookos chokee">
+                                                                          <p id="lnn">${comentsLength}</p>
+                                                                          <span id="spanSs" class="material-symbols-outlined spanS">comment</span>
+                                                                        </button>
+                                                                      </div>
+                                                                      <div class="upload like choke" onclick="likee(${i})">
+                                                                        <button id="like" class="likee lookos chokee">
+                                                                          <p id="lnn">${posts[i].likes}</p>
+                                                                          <span id="spanSs" class="material-symbols-outlined spanS">thumb_up</span>
+                                                                        </button>
+                                                                      </div>
+                                                                    </div>
+                                                                  </div>
         `;
       }
     }
@@ -1362,41 +1399,45 @@ function searchere(value) {
           found = true;
           searchPost += `
   <div class="nasher post">
-             <div class="head-post">
-               <div class="date-info">
-                 <p class="date">${posts[i].date}</p>
-                 <p class="material-symbols-outlined date-icon">calendar_month</p>
-               </div>
-               <div class="pro-post">
-                 <p>${posts[i].name}</p>
-                 <img load = "lazy" class="pro-cc" src="${posts[i].proUrl}" alt="">
-               </div>
-             </div>
-             <div class="post-info">
-               <p>${posts[i].bodyPost}</p>
-             </div>
-             <div class="chosesec">
-               <div class="upload like choke" onclick="deletePost('${posts[i].id}')">
-                 <button id="deleteee" class="likee deleteee chokee">
-                   <p>delete</p>
-                   <span id="spanS" class="material-symbols-outlined">delete</span>
-                 </button>
-               </div>
-               <div class="upload like choke" onclick="com(${i})">
-                 <button id="like" class="likee lookos chokee">
-                   <p id="lnn">${comentsLength}</p>
-                   <span id="spanSs" class="material-symbols-outlined spanS">comment</span>
-                 </button>
-               </div>
-               <div class="upload like choke" onclick="likee(${i})">
-                 <button id="like" class="likee lookos chokee">
-                   <p id="lnn">${posts[i].likes}</p>
-                   <span id="spanSs" class="material-symbols-outlined spanS">thumb_up</span>
-                 </button>
-               </div>
-             </div>
-           </div>
-     `;
+                              <div class="head-post">
+                                <div class="date-info">
+                                  <p class="date">${posts[i].date}</p>
+                                  <p class="material-symbols-outlined date-icon">calendar_month</p>
+                                </div>
+                                <div class="pro-post">
+                                  <p>${posts[i].name}</p>
+                                  <div class="pro-ccd">
+                                   <img load = "lazy" class="pro-cc" src="${posts[i].proUrl}" alt="">
+                                  </div>                               
+                              </div>
+                              </div>
+                              <div class="post-info">
+                                <p>${posts[i].bodyPost}</p>
+                                 <div class="imgp">
+                                   <img src="${posts[i].src}" alt="" style="display:${imgDisplay}">
+                                </div>
+                              </div>
+                              <div class="chosesec">
+                                <div class="upload like choke" onclick="deletePost('${posts[i].id}')">
+                                  <button id="deleteee" class="likee deleteee chokee">
+                                    <p>delete</p>
+                                    <span id="spanS" class="material-symbols-outlined">delete</span>
+                                  </button>
+                                </div>
+                                <div class="upload like choke" onclick="com(${i})">
+                                  <button id="like" class="likee lookos chokee">
+                                    <p id="lnn">${comentsLength}</p>
+                                    <span id="spanSs" class="material-symbols-outlined spanS">comment</span>
+                                  </button>
+                                </div>
+                                <div class="upload like choke" onclick="likee(${i})">
+                                  <button id="like" class="likee lookos chokee">
+                                    <p id="lnn">${posts[i].likes}</p>
+                                    <span id="spanSs" class="material-symbols-outlined spanS">thumb_up</span>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>     `;
         }
       }
       if (found) {
@@ -1418,40 +1459,45 @@ function searchere(value) {
           foundName = true;
           searchPost += `
   <div class="nasher post">
-             <div class="head-post">
-               <div class="date-info">
-                 <p class="date">${posts[i].date}</p>
-                 <p class="material-symbols-outlined date-icon">calendar_month</p>
-               </div>
-               <div class="pro-post">
-                 <p>${posts[i].name}</p>
-                 <img load = "lazy" class="pro-cc" src="${posts[i].proUrl}" alt="">
-               </div>
-             </div>
-             <div class="post-info">
-               <p>${posts[i].bodyPost}</p>
-             </div>
-             <div class="chosesec">
-               <div class="upload like choke" onclick="deletePost('${posts[i].id}')">
-                 <button id="deleteee" class="likee deleteee chokee">
-                   <p>delete</p>
-                   <span id="spanS" class="material-symbols-outlined">delete</span>
-                 </button>
-               </div>
-               <div class="upload like choke" onclick="com(${i})">
-                 <button id="like" class="likee lookos chokee">
-                   <p id="lnn">${comentsLength}</p>
-                   <span id="spanSs" class="material-symbols-outlined spanS">comment</span>
-                 </button>
-               </div>
-               <div class="upload like choke" onclick="likee(${i})">
-                 <button id="like" class="likee lookos chokee">
-                   <p id="lnn">${posts[i].likes}</p>
-                   <span id="spanSs" class="material-symbols-outlined spanS">thumb_up</span>
-                 </button>
-               </div>
-             </div>
-           </div>
+                                         <div class="head-post">
+                                           <div class="date-info">
+                                             <p class="date">${posts[i].date}</p>
+                                             <p class="material-symbols-outlined date-icon">calendar_month</p>
+                                           </div>
+                                           <div class="pro-post">
+                                             <p>${posts[i].name}</p>
+                                             <div class="pro-ccd">
+                                              <img load = "lazy" class="pro-cc" src="${posts[i].proUrl}" alt="">
+                                             </div>                               
+                                         </div>
+                                         </div>
+                                         <div class="post-info">
+                                           <p>${posts[i].bodyPost}</p>
+                                            <div class="imgp">
+                                              <img src="${posts[i].src}" alt="" style="display:${imgDisplay}">
+                                           </div>
+                                         </div>
+                                         <div class="chosesec">
+                                           <div class="upload like choke" onclick="deletePost('${posts[i].id}')">
+                                             <button id="deleteee" class="likee deleteee chokee">
+                                               <p>delete</p>
+                                               <span id="spanS" class="material-symbols-outlined">delete</span>
+                                             </button>
+                                           </div>
+                                           <div class="upload like choke" onclick="com(${i})">
+                                             <button id="like" class="likee lookos chokee">
+                                               <p id="lnn">${comentsLength}</p>
+                                               <span id="spanSs" class="material-symbols-outlined spanS">comment</span>
+                                             </button>
+                                           </div>
+                                           <div class="upload like choke" onclick="likee(${i})">
+                                             <button id="like" class="likee lookos chokee">
+                                               <p id="lnn">${posts[i].likes}</p>
+                                               <span id="spanSs" class="material-symbols-outlined spanS">thumb_up</span>
+                                             </button>
+                                           </div>
+                                         </div>
+                                       </div>
            `;
         }
       }
@@ -1474,41 +1520,45 @@ function searchere(value) {
           foundOpject = true;
           searchPost += `       
   <div class="nasher post">
-                                                    <div class="head-post">
-                                                      <div class="date-info">
-                                                        <p class="date">${posts[i].date}</p>
-                                                        <p class="material-symbols-outlined date-icon">calendar_month</p>
-                                                      </div>
-                                                      <div class="pro-post">
-                                                        <p>${posts[i].name}</p>
-                                                        <img load = "lazy" class="pro-cc" src="${posts[i].proUrl}" alt="">
-                                                      </div>
-                                                    </div>
-                                                    <div class="post-info">
-                                                      <p>${posts[i].bodyPost}</p>
-                                                    </div>
-                                                    <div class="chosesec">
-                                                      <div class="upload like choke" onclick="deletePost('${posts[i].id}')">
-                                                        <button id="deleteee" class="likee deleteee chokee">
-                                                          <p>delete</p>
-                                                          <span id="spanS" class="material-symbols-outlined">delete</span>
-                                                        </button>
-                                                      </div>
-                                                      <div class="upload like choke" onclick="com(${i})">
-                                                        <button id="like" class="likee lookos chokee">
-                                                          <p id="lnn">${comentsLength}</p>
-                                                          <span id="spanSs" class="material-symbols-outlined spanS">comment</span>
-                                                        </button>
-                                                      </div>
-                                                      <div class="upload like choke" onclick="likee(${i})">
-                                                        <button id="like" class="likee lookos chokee">
-                                                          <p id="lnn">${posts[i].likes}</p>
-                                                          <span id="spanSs" class="material-symbols-outlined spanS">thumb_up</span>
-                                                        </button>
-                                                      </div>
-                                                    </div>
-                                                  </div>
-        `;
+                              <div class="head-post">
+                                <div class="date-info">
+                                  <p class="date">${posts[i].date}</p>
+                                  <p class="material-symbols-outlined date-icon">calendar_month</p>
+                                </div>
+                                <div class="pro-post">
+                                  <p>${posts[i].name}</p>
+                                  <div class="pro-ccd">
+                                   <img load = "lazy" class="pro-cc" src="${posts[i].proUrl}" alt="">
+                                  </div>                               
+                              </div>
+                              </div>
+                              <div class="post-info">
+                                <p>${posts[i].bodyPost}</p>
+                                 <div class="imgp">
+                                   <img src="${posts[i].src}" alt="" style="display:${imgDisplay}">
+                                </div>
+                              </div>
+                              <div class="chosesec">
+                                <div class="upload like choke" onclick="deletePost('${posts[i].id}')">
+                                  <button id="deleteee" class="likee deleteee chokee">
+                                    <p>delete</p>
+                                    <span id="spanS" class="material-symbols-outlined">delete</span>
+                                  </button>
+                                </div>
+                                <div class="upload like choke" onclick="com(${i})">
+                                  <button id="like" class="likee lookos chokee">
+                                    <p id="lnn">${comentsLength}</p>
+                                    <span id="spanSs" class="material-symbols-outlined spanS">comment</span>
+                                  </button>
+                                </div>
+                                <div class="upload like choke" onclick="likee(${i})">
+                                  <button id="like" class="likee lookos chokee">
+                                    <p id="lnn">${posts[i].likes}</p>
+                                    <span id="spanSs" class="material-symbols-outlined spanS">thumb_up</span>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>        `;
         }
       }
       if (foundOpject) {

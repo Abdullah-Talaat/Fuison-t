@@ -428,14 +428,9 @@ margin-bottom:10px;
   border-left: 4px #FA0000 solid;
 }
 .pro-cc{
-  margin: 0 10px;
-  height: 45px;
-  width: 45px;
-  border-radius: 50%;
-  border-bottom: 4px #00FA41 solid;
-  border-top: 4px #000000 solid;
-  border-right: 4px #FFFFFF solid;
-  border-left: 4px #FA0000 solid;
+  width: 100%; /* ضبط عرض الصورة ليكون 100% من العنصر الحاوي */
+  height: 100%; /* ضبط ارتفاع الصورة ليكون 100% من العنصر الحاوي */
+  object-fit: cover; /* لضمان تغطية الصورة للعنصر الحاوي بشكل جيد */
 }
 
 #narInp,#inputS,.search-initims input{
@@ -498,8 +493,6 @@ margin-bottom:10px;
 .pro-post{
   display: flex;
   align-items: center;
-  /*justify-content: space-between;*/
-  
 }
 .pro-post p{
   margin-left: 10px;
@@ -811,11 +804,6 @@ margin:20px 22%;
  .coment1{
    padding: 20px;
    margin: 20px 0;
- }
- .profile-coment img {
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
  }
  .profile-coment{
    display: flex;
@@ -1713,12 +1701,70 @@ margin: 5px 0;
   border: #fff 1.5px dashed;
 }
 .imgp{
-              display: flex;
-              align-items: center;
-              text-align: center
-            }.imgp img {
-              min-width: 350px;
-              min-height: 300px;
-              max-height: 450px;
-              max-width: 500px
-            }
+  width: 100%;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center
+}.imgp img {
+ min-width: 591px;
+ min-height: 528px;
+ max-height: 678px;
+ max-width: 741px
+}
+.chimg{
+ display: flex;
+ align-items: center;
+}
+.box-img-sin {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 2px #fff solid;
+  overflow: hidden;
+  display: none; /* تم إزالة التكرار */
+  justify-content: center; /* لضمان مركزية المحتوى */
+  align-items: center; /* لضمان مركزية المحتوى */
+}
+
+.box-img-sin img {
+  width: 100%; /* ضبط عرض الصورة ليكون 100% من العنصر الحاوي */
+  height: 100%; /* ضبط ارتفاع الصورة ليكون 100% من العنصر الحاوي */
+  object-fit: cover; /* لضمان تغطية الصورة للعنصر الحاوي بشكل جيد */
+}
+.cimgpd {
+  width: 39px;
+  height: 39px;
+  border-radius: 50%;
+  border: 1px solid #fff; /* تحسين ترتيب الخواص */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  }
+  
+  .cimgpd img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  }
+.pro-ccd{
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border :1px #fff solid;
+  overflow: hidden;
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  margin: 0 10px;
+}
+.st{
+  background:#4E91FE;
+  color: #fff;
+  font-size: 18px;
+  padding: 2px;
+  border-radius: 50%;
+  margin-left: 2px;
+}
