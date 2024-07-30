@@ -1,4 +1,4 @@
-let body = document.querySelector(".body");
+  let body = document.querySelector(".body");
 let loding = document.querySelector(".over-lay");
 window.addEventListener("load", function() {
   setTimeout(function() {
@@ -707,7 +707,12 @@ async function getImgProfile() {
     console.log("Image is not defined"); // استخدام تنبيه بدلاً من console.log
   }
 }
-let users = JSON.parse(localStorage.getItem("usersvf")) || [];
+let users1 = JSON.parse(localStorage.getItem("usersvf")) || [];
+let users2 = JSON.parse(localStorage.getItem("usersvfy")) || [];
+
+// دمج المصفوفتين في مصفوفة واحدة
+let users = users1.concat(users2);
+
 let usersf = [];
 let uId;
 let postsLike;
@@ -814,7 +819,7 @@ try {
 }
       
       users.push(user);
-      localStorage.setItem("usersvf", JSON.stringify(users));
+      localStorage.setItem("usersvfy", JSON.stringify(users));
       }
     } else {
       alertt("sorry " + sinUpName.value.trim() + ". You can't enter to fusion. Because you are young. ","red")
@@ -829,6 +834,8 @@ function clearInluts() {
   dateMontheSin.value = "" ; 
   dateDaySin.value = "" ;
   passwordSin.value = "";
+  nameLog.value = "";
+  passwordLog.value = "";
 }
 function showApp() {
   document.querySelector(".login").style = `display:none `;
@@ -876,8 +883,8 @@ if (passwordLog.value.trim() !== "" && nameLog.value.trim() !== "") {
         postsLike = user.userDate.liked;
         uId = user.id;
         trueU = user.userDate.ture;
-        users.push(user);
-        localStorage.setItem('usersvf', JSON.stringify(users));
+        users.push(user.userDate);
+        localStorage.setItem('usersvfy', JSON.stringify(users));
         break; // الخروج من الحلقة بعد العثور على المستخدم
       }
     }
@@ -906,53 +913,21 @@ sinUpBtn.onclick = function() {
 logInbtn.onclick = function() {
   login()
 }
-function showBhu() {
-  if(users.length == 0){
-     bhu.style.display = "none"  ;
-  }
-  else {
-    bhu.style.display = "flex";
-  }
-}
 
-
-let userPages = document.querySelector(".user-pages");
-let colsePages = document.querySelector(".colse-pages");
-function colseUserPages() {
-  bhu.style.display = "none"  ;
-}
-colsePages.onclick = function (){
-  colseUserPages();
-}
-let pagesSh = document.querySelector(".pages-sh").innerHTML ;
-function showPages() {
-  let pagesN = "";
-  for (let u = 0; u < users.length; u++) {
-    pagesN += `<div class="pages" onclick="loginWithPage(${u})">
-                 <div class="image-page">
-                   <img load = "lazy" load = "lazy"" src="${users[u].proImg}" alt="">
-                 </div>
-                 <div class="info-page">
-                   <p class="p-name-page">${users[u].name}</p> 
-                   <p class="p-id-page">${users[u].phone}</p> 
-                 </div>
-               </div>`;
-  }
-  pagesSh = pagesN;
-}
-showPages();
 function loginWithPage(i) {
-  nameLog.value = users[i].phone;
-  passwordLog.value = users[i].password;
+  document.querySelector('#nameLog').value = users[i].phone;
+  document.querySelector('#passwordLog').value = users[i].password;
   login();
 }
+
 if (users.length == 1) {
-  loginWithPage(0)
+  loginWithPage(0);
 }
+
 function logOut() {
-  document.querySelector(".login").style = `display:flex `;
-  document.querySelector(".navbar").style= `display:none `;
-  buh.style.display = 'flex';
+  document.querySelector(".login").style.display = "flex";
+  document.querySelector(".navbar").style.display = "none";
+  userPages.style.display = 'flex';
   clearInluts();
   showPages();
 }
@@ -981,7 +956,7 @@ async function upload() {
     let date = now.getFullYear() + " / " + (now.getMonth() + 1) + " / " + now.getDate();
     console.log(date);
     let newPost = {
-      bodyPost: narInp.value.replace(/\n/g, '<br>'),
+      bodyPost: narInpm.value.replace(/\n/g, '<br>'),
       name: nameInput,
       likes: 0,
       date: date,
@@ -1122,9 +1097,7 @@ function showComent() {
         let comentHTML = `
 <div class="coment1">
             <div class="profile-coment">
-              <div class="boximgct">
-                <img loading="lazy" src="${storedComents[i].proUrl}" alt="Profile Image" />
-              </div>
+                <img loading="lazy" src="${storedComents[i].proUrl}" >
               <p class="pro-name-com">${storedComents[i].nameComent}</p>
               <span class="material-symbols-outlined st" style="display: ${trueDisplay};">check</span>
               <p class="comet-date-info">${storedComents[i].datecoment}</p>
@@ -1724,10 +1697,7 @@ function trans() {
 
 // التأكد من أن دالة alertt موجودة أو تعريفها إذا لم تكن موجودة
 let proopost = document.getElementById("postsPro")
-if (proopost) {
-  console.log(proopost)
-}
-else console.log('!proopost')
+
 window.onerror = function(message, source, lineno, colno, error) {
   // عرض رسالة تنبيه عند حدوث خطأ
   alertt("):حدث خطأ، سوف يتم إعادة تحميل الموقع " + error, "red");

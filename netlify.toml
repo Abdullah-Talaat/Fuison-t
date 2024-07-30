@@ -1,0 +1,8 @@
+[build]
+publish = "."
+
+# Optionally, add headers if needed
+[[headers]]
+for = "/*.js"
+[headers.values]
+Content-Type = "application/javascript"
