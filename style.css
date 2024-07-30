@@ -172,21 +172,6 @@ transition: 1s;
   margin-left: 30px;
   background :#2977F6;
 }
-.profile1 img{
-  height: 40px;
-  /*width: 40px;*/
-  border-radius: 50%;
-  border-bottom: 4px #00FA41 solid;
-  border-top: 4px #000000 solid;
-  border-right: 4px #FFFFFF solid;
-  border-left: 4px #FA0000 solid;
-}
-.profile1 img:hover{
-  border-bottom: 3px #00FA41 solid;
-  border-top: 3px #000000 solid;
-  border-right: 3px #FFFFFF solid;
-  border-left: 3px #FA0000 solid;
-}
 .pi1,.pi2,.pi3{
   margin-top: 20px;
   margin-right: 5px;
@@ -814,7 +799,22 @@ margin:20px 22%;
   margin-left: 7px;
   max-width:100%;
 } 
-.info-txt-com{
+.boximgct {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.boximgct img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}.info-txt-com{
   background: rgba(0,0,0,0.2);
   padding: 10px;
   border-radius: 0 15px 15px 15px;
@@ -1700,20 +1700,24 @@ margin: 5px 0;
   margin: 15px 0;
   border: #fff 1.5px dashed;
 }
-.imgp{
+.imgp {
   width: 100%;
   margin-top: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center
-}.imgp img {
- min-width: 591px;
- min-height: 528px;
- max-height: 678px;
- max-width: 741px
+  text-align: center;
 }
-.chimg{
+
+.imgp img {
+  width: 100%;
+  height: auto;
+  max-width: 741px;
+  max-height: 741px;
+  min-width: 591px;
+  min-height: 591px;
+  object-fit: cover; /* هذا يحافظ على تناسب الصورة مع الأبعاد دون تشويه */
+}.chimg{
  display: flex;
  align-items: center;
 }
@@ -1733,27 +1737,43 @@ margin: 5px 0;
   height: 100%; /* ضبط ارتفاع الصورة ليكون 100% من العنصر الحاوي */
   object-fit: cover; /* لضمان تغطية الصورة للعنصر الحاوي بشكل جيد */
 }
+
 .cimgpd {
   width: 39px;
   height: 39px;
   border-radius: 50%;
-  border: 1px solid #fff; /* تحسين ترتيب الخواص */
+  border: 2px solid #fff;
   overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
-  }
-  
-  .cimgpd img {
+}
+
+.cimgpd img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  }
-.pro-ccd{
+}
+.box-pro-im {
   width: 45px;
   height: 45px;
   border-radius: 50%;
   border :1px #fff solid;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.box-pro-im img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+.pro-ccd{
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  border :2px #fff solid;
   overflow: hidden;
   display: flex; 
   justify-content: center;
@@ -1767,4 +1787,25 @@ margin: 5px 0;
   padding: 2px;
   border-radius: 50%;
   margin-left: 2px;
+} 
+.chimgbtn{
+  font-size: 30px;
+  padding: 10px;
+  color: #fff;
+  border-radius: 50%;
+  background :#2977F6;
+  margin: 10px 0;
+} 
+.nnu2{
+  display: none;
+}
+.profiledivp{
+  background: #000;
+  color: #CDCDCD;
+  display: none;
+}
+
+.rrtuy{
+  width: 100%;
+  padding: 20px;
 }

@@ -243,6 +243,7 @@ function disNav(e1,e2,e3,e4) {
  function n11() {
   nav(n1,n2,n3,n4,n21,n32,n23,n24);
   disNav(home,book,friends,videos);
+  document.querySelector('.profiledivp').style.display = "none"
   window.scrollTo({
   top: 0,
   behavior: "smooth",
@@ -251,15 +252,16 @@ function disNav(e1,e2,e3,e4) {
 function n22() {
   nav(n2,n1,n3,n4,n32,n21,n23,n24);
   disNav(friends,book,home,videos);
-
-}
-function n33() {
+  document.querySelector('.profiledivp').style.display = "none"
+  }function n33() {
   nav(n3,n2,n1,n4,n23,n32,n24,n21);
   disNav(videos,book,home,friends);
+  document.querySelector('.profiledivp').style.display = "none"
 }
 function n44() {
   nav(n4, n2, n3, n1,n24,n32,n23,n21);
   disNav(book,videos,home,friends);
+  document.querySelector('.profiledivp').style.display = "none"
 }
 let spanSs = document.querySelector("spanS");
 // showMore
@@ -299,6 +301,8 @@ let rrrt = document.querySelector(".rrrt");
 let rrrtf = document.querySelector(".rrrtf");
 let rrrrt = document.querySelector(".rrrrt");
 let rrrrrt = document.querySelector(".rrrrrt");
+let rrtuy = document.querySelector(".rrtuy");
+
 let leftS = document.querySelector(".left-s")
 
 let webMood = "dark";
@@ -349,6 +353,9 @@ rrrtf.style = `background :#333;
 color:#fff;
 `
 rrt.style = `background :#222;
+color:#fff;
+`
+rrtuy.style = `background :#222;
 color:#fff;
 `
 rrrt.style = `background :#222;
@@ -571,6 +578,7 @@ function toggleMode() {
   } else {
     // استدعاء دالة الظلام
     darkk();
+  
     isDarkMode = true;
     buttonMoodWeb.innerHTML = "light_mode";
     pMoodWeb.innerHTML = "Light Mood";
@@ -580,6 +588,8 @@ function toggleMode() {
   // حفظ الحالة في Local Storage
   localStorage.setItem("isDarkMode", isDarkMode);
 }
+document.querySelector('.rrtuy').style = `background: #333;
+  color: #CDCDCD;`
 let bhu = document.querySelector('.bhu');
 // استعادة الحالة عند تحميل الصفحة
 window.onload = function() {
@@ -785,6 +795,8 @@ try {
     nameInput = userData.name;
     if(userData.proImg != "") imgProUrl = userData.proImg;
     else imgProUrl = "pro1.jpeg";
+    document.querySelector('#imgporfii').src = imgProUrl
+    document.querySelector('#imgporfiii').src = imgProUrl
     uId = userRef.id;
     postsLike = userData.liked;
     trueU = userData.ture;
@@ -840,6 +852,7 @@ if (passwordLog.value.trim() !== "" && nameLog.value.trim() !== "") {
             id: doc.id
           });
       });
+      
     }
   } catch (error) {
     lodingSean(false);
@@ -858,6 +871,8 @@ if (passwordLog.value.trim() !== "" && nameLog.value.trim() !== "") {
         nameInput = user.userDate.name;
         if (user.proImg != "") imgProUrl = user.userDate.proImg;
         else imgProUrl = "pro1.jpg";
+        document.querySelector('#imgporfii').src = imgProUrl
+        document.querySelector('#imgporfiii').src = imgProUrl
         postsLike = user.userDate.liked;
         uId = user.id;
         trueU = user.userDate.ture;
@@ -1045,7 +1060,6 @@ async function uploadim(){
         }
 }
 
-
 let sendComentBtn = document.getElementById('sendComentBtn');
 sendComentBtn.onclick = function() {
   
@@ -1106,13 +1120,13 @@ function showComent() {
       if(storedComents[i].trueP) trueDisplay = "flex";
       else trueDisplay = "none";
         let comentHTML = `
-          <div class="coment1">
+<div class="coment1">
             <div class="profile-coment">
-              <div class="cimgpd">
-                            <img load="lazy" src="${storedComents[i].proUrl}"/>
+              <div class="boximgct">
+                <img loading="lazy" src="${storedComents[i].proUrl}" alt="Profile Image" />
               </div>
               <p class="pro-name-com">${storedComents[i].nameComent}</p>
-              <span class="material-symbols-outlined st" style="display:${trueDisplay}">check</span>
+              <span class="material-symbols-outlined st" style="display: ${trueDisplay};">check</span>
               <p class="comet-date-info">${storedComents[i].datecoment}</p>
             </div>
             <div class="info-txt-com">
@@ -1126,6 +1140,7 @@ function showComent() {
     comentser.innerHTML = '<p class="p-nan">لا يوجد تعليقات كون اول من يعلق</p>';
   }
 }
+
 
 function fetchPosts() {
   lodingSean(true);
@@ -1232,7 +1247,9 @@ function com(index) {
   boxComent.style = `transform:translateX(0%)`;
   postIndex = index;
   showComent();
+  searchere(inputSs.value);
 }
+
 function deletePost(postId) {
             let deletPassord = prompt("Enter deletPassord");
             if (deletPassord === "fd-post") {
@@ -1243,6 +1260,7 @@ function deletePost(postId) {
                         lodingSean(false);
                         alert("Document successfully deleted!");
                         fetchPosts();
+                        searchere(inputSs.value);
                     })
                     .catch((error) => {
                         lodingSean(false);
@@ -1251,6 +1269,20 @@ function deletePost(postId) {
             } else {
                 alertt("deletPassord is not true", "red");
             }
+}
+function deletePostt(postId){
+    lodingSean(true);
+    const docRef = db.collection('posts').doc(postId);
+    docRef.delete()
+      .then(() => {
+        lodingSean(false);
+        alert("Document successfully deleted!");
+        fetchPosts();
+      })
+      .catch((error) => {
+        lodingSean(false);
+        alertt("Error removing document: " + error, "red");
+      });
 }
 let postDLike = false;
 
@@ -1287,12 +1319,15 @@ async function likee(postIndex) {
     console.log("Document successfully updated!");
     // تحديث العرض بعد التعديل
     fetchPosts();
+    searchere(inputSs.value);
   } catch (error) {
     alertt(`Error: ${error}`, "red");
   } finally {
     lodingSean(false);
   }
 }
+
+
 let searchMood = "all";
 let inputSs = document.getElementById("inputSs");
 function getSearchMood(id) {
@@ -1317,55 +1352,58 @@ function searcher(value) {
       let postName = posts[i].name ? posts[i].name.trim().toLowerCase() : "";
       let postBody = posts[i].bodyPost ? posts[i].bodyPost.trim().toLowerCase() : "";
       let comentsLength = posts[i].coments ? posts[i].coments.length : 0;
-          if (posts[i].src) {
+         if (posts[i].src) {
             imgDisplay = "flex";
           }
           else {
             imgDisplay = "none";
           }
+          if (posts[i].trueP) trueDisplay = "flex";
+          else trueDisplay = "none";
       if (postName.includes(value.trim().toLowerCase()) || postBody.includes(value.trim().toLowerCase())) {
         found = true;
         postn += `
   <div class="nasher post">
-                                                                    <div class="head-post">
-                                                                      <div class="date-info">
-                                                                        <p class="date">${posts[i].date}</p>
-                                                                        <p class="material-symbols-outlined date-icon">calendar_month</p>
-                                                                      </div>
-                                                                      <div class="pro-post">
-                                                                        <p>${posts[i].name}</p>
-                                                                        <div class="pro-ccd">
-                                                                         <img load = "lazy" class="pro-cc" src="${posts[i].proUrl}" alt="">
-                                                                        </div>                               
-                                                                    </div>
-                                                                    </div>
-                                                                    <div class="post-info">
-                                                                      <p>${posts[i].bodyPost}</p>
-                                                                       <div class="imgp">
-                                                                         <img src="${posts[i].src}" alt="" style="display:${imgDisplay}">
-                                                                      </div>
-                                                                    </div>
-                                                                    <div class="chosesec">
-                                                                      <div class="upload like choke" onclick="deletePost('${posts[i].id}')">
-                                                                        <button id="deleteee" class="likee deleteee chokee">
-                                                                          <p>delete</p>
-                                                                          <span id="spanS" class="material-symbols-outlined">delete</span>
-                                                                        </button>
-                                                                      </div>
-                                                                      <div class="upload like choke" onclick="com(${i})">
-                                                                        <button id="like" class="likee lookos chokee">
-                                                                          <p id="lnn">${comentsLength}</p>
-                                                                          <span id="spanSs" class="material-symbols-outlined spanS">comment</span>
-                                                                        </button>
-                                                                      </div>
-                                                                      <div class="upload like choke" onclick="likee(${i})">
-                                                                        <button id="like" class="likee lookos chokee">
-                                                                          <p id="lnn">${posts[i].likes}</p>
-                                                                          <span id="spanSs" class="material-symbols-outlined spanS">thumb_up</span>
-                                                                        </button>
-                                                                      </div>
-                                                                    </div>
-                                                                  </div>
+                              <div class="head-post">
+                                <div class="date-info">
+                                  <p class="date">${posts[i].date}</p>
+                                  <p class="material-symbols-outlined date-icon">calendar_month</p>
+                                </div>
+                                <div class="pro-post">
+                                  <p>${posts[i].name}</p>
+                                  <span class="material-symbols-outlined st" style="display:${trueDisplay}">check</span>
+                                  <div class="pro-ccd">
+                                   <img load = "lazy" class="pro-cc" src="${posts[i].proUrl}" alt="">
+                                  </div>                               
+                              </div>
+                              </div>
+                              <div class="post-info">
+                                <p>${posts[i].bodyPost}</p>
+                                 <div class="imgp">
+                                   <img src="${posts[i].src}" alt="" style="display:${imgDisplay}">
+                                </div>
+                              </div>
+                              <div class="chosesec">
+                                <div class="upload like choke" onclick="deletePost('${posts[i].id}')">
+                                  <button id="deleteee" class="likee deleteee chokee">
+                                    <p>delete</p>
+                                    <span id="spanS" class="material-symbols-outlined">delete</span>
+                                  </button>
+                                </div>
+                                <div class="upload like choke" onclick="com(${i})">
+                                  <button id="like" class="likee lookos chokee">
+                                    <p id="lnn">${comentsLength}</p>
+                                    <span id="spanSs" class="material-symbols-outlined spanS">comment</span>
+                                  </button>
+                                </div>
+                                <div class="upload like choke" onclick="likee(${i})">
+                                  <button id="like" class="likee lookos chokee">
+                                    <p id="lnn">${posts[i].likes}</p>
+                                    <span id="spanSs" class="material-symbols-outlined spanS">thumb_up</span>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
         `;
       }
     }
@@ -1395,6 +1433,8 @@ function searchere(value) {
             else {
               imgDisplay = "none";
             }
+            if (posts[i].trueP) trueDisplay = "flex";
+            else trueDisplay = "none";
         if (postName.includes(value.trim().toLowerCase()) || postBody.includes(value.trim().toLowerCase())) {
           found = true;
           searchPost += `
@@ -1406,6 +1446,7 @@ function searchere(value) {
                                 </div>
                                 <div class="pro-post">
                                   <p>${posts[i].name}</p>
+                                  <span class="material-symbols-outlined st" style="display:${trueDisplay}">check</span>
                                   <div class="pro-ccd">
                                    <img load = "lazy" class="pro-cc" src="${posts[i].proUrl}" alt="">
                                   </div>                               
@@ -1437,7 +1478,8 @@ function searchere(value) {
                                   </button>
                                 </div>
                               </div>
-                            </div>     `;
+                            </div>
+    `;
         }
       }
       if (found) {
@@ -1455,70 +1497,12 @@ function searchere(value) {
             else {
               imgDisplay = "none";
             }
+             if (posts[i].trueP) trueDisplay = "flex";
+            else trueDisplay = "none";
+
         if (postName.includes(value.trim().toLocaleLowerCase())) {
           foundName = true;
           searchPost += `
-  <div class="nasher post">
-                                         <div class="head-post">
-                                           <div class="date-info">
-                                             <p class="date">${posts[i].date}</p>
-                                             <p class="material-symbols-outlined date-icon">calendar_month</p>
-                                           </div>
-                                           <div class="pro-post">
-                                             <p>${posts[i].name}</p>
-                                             <div class="pro-ccd">
-                                              <img load = "lazy" class="pro-cc" src="${posts[i].proUrl}" alt="">
-                                             </div>                               
-                                         </div>
-                                         </div>
-                                         <div class="post-info">
-                                           <p>${posts[i].bodyPost}</p>
-                                            <div class="imgp">
-                                              <img src="${posts[i].src}" alt="" style="display:${imgDisplay}">
-                                           </div>
-                                         </div>
-                                         <div class="chosesec">
-                                           <div class="upload like choke" onclick="deletePost('${posts[i].id}')">
-                                             <button id="deleteee" class="likee deleteee chokee">
-                                               <p>delete</p>
-                                               <span id="spanS" class="material-symbols-outlined">delete</span>
-                                             </button>
-                                           </div>
-                                           <div class="upload like choke" onclick="com(${i})">
-                                             <button id="like" class="likee lookos chokee">
-                                               <p id="lnn">${comentsLength}</p>
-                                               <span id="spanSs" class="material-symbols-outlined spanS">comment</span>
-                                             </button>
-                                           </div>
-                                           <div class="upload like choke" onclick="likee(${i})">
-                                             <button id="like" class="likee lookos chokee">
-                                               <p id="lnn">${posts[i].likes}</p>
-                                               <span id="spanSs" class="material-symbols-outlined spanS">thumb_up</span>
-                                             </button>
-                                           </div>
-                                         </div>
-                                       </div>
-           `;
-        }
-      }
-      if (foundName) {
-        document.getElementById("postsSsearch").innerHTML = searchPost;
-      } else {
-        document.getElementById("postsSsearch").innerHTML = '<p class="p-nan">لا توجد نتائج مطابقة للبحث</p>';
-      }
-    } else {
-      for (let i = posts.length - 1; i >= 0; i--) {
-        let postBody = posts[i].bodyPost ? posts[i].bodyPost.trim().toLocaleLowerCase() : "";
-        comentsLength = posts[i].coments ? posts[i].coments.length : 0;
-            if (posts[i].src) {
-              imgDisplay = "flex";
-            }
-            else {
-              imgDisplay = "none";
-            }
-        if (postBody.includes(value.trim().toLocaleLowerCase())) {
-          foundOpject = true;
-          searchPost += `       
   <div class="nasher post">
                               <div class="head-post">
                                 <div class="date-info">
@@ -1527,6 +1511,7 @@ function searchere(value) {
                                 </div>
                                 <div class="pro-post">
                                   <p>${posts[i].name}</p>
+                                  <span class="material-symbols-outlined st" style="display:${trueDisplay}">check</span>
                                   <div class="pro-ccd">
                                    <img load = "lazy" class="pro-cc" src="${posts[i].proUrl}" alt="">
                                   </div>                               
@@ -1558,7 +1543,73 @@ function searchere(value) {
                                   </button>
                                 </div>
                               </div>
-                            </div>        `;
+                            </div>
+         `;
+        }
+      }
+      if (foundName) {
+        document.getElementById("postsSsearch").innerHTML = searchPost;
+      } else {
+        document.getElementById("postsSsearch").innerHTML = '<p class="p-nan">لا توجد نتائج مطابقة للبحث</p>';
+      }
+    } else {
+      for (let i = posts.length - 1; i >= 0; i--) {
+        let postBody = posts[i].bodyPost ? posts[i].bodyPost.trim().toLocaleLowerCase() : "";
+        comentsLength = posts[i].coments ? posts[i].coments.length : 0;
+            if (posts[i].src) {
+              imgDisplay = "flex";
+            }
+            else {
+              imgDisplay = "none";
+            }
+                        if (posts[i].trueP) trueDisplay = "flex";
+            else trueDisplay = "none";
+
+        if (postBody.includes(value.trim().toLocaleLowerCase())) {
+          foundOpject = true;
+          searchPost += `       
+  <div class="nasher post">
+                              <div class="head-post">
+                                <div class="date-info">
+                                  <p class="date">${posts[i].date}</p>
+                                  <p class="material-symbols-outlined date-icon">calendar_month</p>
+                                </div>
+                                <div class="pro-post">
+                                  <p>${posts[i].name}</p>
+                                  <span class="material-symbols-outlined st" style="display:${trueDisplay}">check</span>
+                                  <div class="pro-ccd">
+                                   <img load = "lazy" class="pro-cc" src="${posts[i].proUrl}" alt="">
+                                  </div>                               
+                              </div>
+                              </div>
+                              <div class="post-info">
+                                <p>${posts[i].bodyPost}</p>
+                                 <div class="imgp">
+                                   <img src="${posts[i].src}" alt="" style="display:${imgDisplay}">
+                                </div>
+                              </div>
+                              <div class="chosesec">
+                                <div class="upload like choke" onclick="deletePost('${posts[i].id}')">
+                                  <button id="deleteee" class="likee deleteee chokee">
+                                    <p>delete</p>
+                                    <span id="spanS" class="material-symbols-outlined">delete</span>
+                                  </button>
+                                </div>
+                                <div class="upload like choke" onclick="com(${i})">
+                                  <button id="like" class="likee lookos chokee">
+                                    <p id="lnn">${comentsLength}</p>
+                                    <span id="spanSs" class="material-symbols-outlined spanS">comment</span>
+                                  </button>
+                                </div>
+                                <div class="upload like choke" onclick="likee(${i})">
+                                  <button id="like" class="likee lookos chokee">
+                                    <p id="lnn">${posts[i].likes}</p>
+                                    <span id="spanSs" class="material-symbols-outlined spanS">thumb_up</span>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+      `;
         }
       }
       if (foundOpject) {
@@ -1574,7 +1625,90 @@ function openSearch() {
   document.getElementById("seach").style = `display:flex;`;
   document.getElementById("seach").focus()
 }
+let nnu1 = document.querySelector('.nnu1');
+let nnu2 = document.querySelector('.nnu2');
 
+function chn(num) {
+  if(num == 1) {
+    nnu1.style.display = "none";
+    nnu2.style.display = "block";
+  }
+  else{
+    nnu1.style.display = "block";
+    nnu2.style.display = "none";
+  }
+}
+let postsPro ;
+function profile() {
+  disNav(document.querySelector('.profiledivp'),book,friends,videos);
+  home.style.display = "none";
+  document.querySelector('.profiledivp').style.display = "flex"
+
+      let poststg = "";
+for (let i = 0; i < posts.length; i++){
+    if (posts[i].src) {
+      imgDisplay = "flex";
+    }
+    else{
+      imgDisplay = "none";
+    }
+    if (posts[i].trueP) trueDisplay = "flex";
+    else trueDisplay = "none";
+    let comentsLength = posts[i].coments ? posts[i].coments.length : 0;
+    if(posts[i].name == nameInput){
+    poststg += `
+  <div class="nasher post">
+                              <div class="head-post">
+                                <div class="date-info">
+                                  <p class="date">${posts[i].date}</p>
+                                  <p class="material-symbols-outlined date-icon">calendar_month</p>
+                                </div>
+                                <div class="pro-post">
+                                  <p>${posts[i].name}</p>
+                                  <span class="material-symbols-outlined st" style="display:${trueDisplay}">check</span>
+                                  <div class="pro-ccd">
+                                   <img load = "lazy" class="pro-cc" src="${posts[i].proUrl}" alt="">
+                                  </div>                               
+                              </div>
+                              </div>
+                              <div class="post-info">
+                                <p>${posts[i].bodyPost}</p>
+                                 <div class="imgp">
+                                   <img src="${posts[i].src}" alt="" style="display:${imgDisplay}">
+                                </div>
+                              </div>
+                              <div class="chosesec">
+                                <div class="upload like choke" onclick="deletePostt('${posts[i].id}')">
+                                  <button id="deleteee" class="likee deleteee chokee">
+                                    <p>delete</p>
+                                    <span id="spanS" class="material-symbols-outlined">delete</span>
+                                  </button>
+                                </div>
+                                <div class="upload like choke" onclick="com(${i})">
+                                  <button id="like" class="likee lookos chokee">
+                                    <p id="lnn">${comentsLength}</p>
+                                    <span id="spanSs" class="material-symbols-outlined spanS">comment</span>
+                                  </button>
+                                </div>
+                                <div class="upload like choke" onclick="likee(${i})">
+                                  <button id="like" class="likee lookos chokee">
+                                    <p id="lnn">${posts[i].likes}</p>
+                                    <span id="spanSs" class="material-symbols-outlined spanS">thumb_up</span>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+    `;
+    }
+  }
+
+  if(proopost){
+        proopost.innerHTML = poststg;
+        console.log(true)
+  }
+  else console.log("nn");
+}
+  
 
 /*let valuelange = "en";
 function trans() {
@@ -1589,7 +1723,11 @@ function trans() {
 */
 
 // التأكد من أن دالة alertt موجودة أو تعريفها إذا لم تكن موجودة
-
+let proopost = document.getElementById("postsPro")
+if (proopost) {
+  console.log(proopost)
+}
+else console.log('!proopost')
 window.onerror = function(message, source, lineno, colno, error) {
   // عرض رسالة تنبيه عند حدوث خطأ
   alertt("):حدث خطأ، سوف يتم إعادة تحميل الموقع " + error, "red");

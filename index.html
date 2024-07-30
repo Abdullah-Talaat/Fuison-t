@@ -109,9 +109,11 @@
           </button>
         </div>
       </div>
-      <div onclick="toPlasten()"  class="profile1 pi4">
+      <div onclick="profile()"  class="profile1 pi4">
         <span class="pspan">.</span>
-        <img load="lazy"  src = "pro1.jpg" alt="">
+        <div class="box-pro-im">
+          <img load="lazy" id="imgporfii"  alt="">
+        </div>
       </div>
       </div>
      </div>
@@ -290,10 +292,11 @@
           <!--home-->
           <div id="home">
             <div class="containerq rrt">
-            <div class="nasher">
-              <div class="input">
+            <div class="nasher nnu1">
+              <div class="input" style="display: flex;flex-direction: column">
  <textarea id="narInp" class="narinpc" style = "hegh:600px; width: 600px">
       </textarea>
+      <button onclick = "chn(1)" class="material-symbols-outlined chimgbtn">photo_camera</button>
               </div>
             <div  onclick="upload()" class="upload">
                 <button id="upload" class="uploadbtn">
@@ -306,7 +309,7 @@
             </div>
 
 
-                  <div class="nasher">
+                  <div class="nasher nnu2">
               <div class="input"style="display: flex;flex-direction: column">
  <textarea id="narInpm" class="narinpc" style = "hegh:600px; width: 600px">
  </textarea>
@@ -314,6 +317,8 @@
    <label for="imgch" class="imgchl">chose image</label>
    <!--imgch, imgu-->
    <img class="imgu" style="max-height: 300px;max-width: 300px ;padding-left: 10px ;display: none">
+         <button onclick = "chn(2)"class="material-symbols-outlined chimgbtn">edit</button>
+
               </div>
             <div class="upload" onclick = "uploadim()">
                 <button id="upload" class="uploadbtn">
@@ -332,7 +337,11 @@
       </div>
             </div>
           
-      
+         <div class="profiledivp">
+        <div class="containerq rrtuy">
+          <div id="postsPro"></div>
+        </div>
+      </div>
           <!--friends-->
           
               <div id="friends">
@@ -399,6 +408,17 @@
               <span class="sss"></span>
             </div>
             </div>
+
+                                      <div onclick="profile()" class="nas">
+                                        <div class="info">
+                                          <p>Profile</p>
+                                        </div>
+                                        <button class="material-symbols-outlined w" id="n2">
+                                                              <div class="box-pro-im">
+                                                                <img load="lazy" id="imgporfiii" alt="">
+                                                              </div>
+                                        </button>
+                                      </div>
                   <div onclick="n11()" class="nas">
               <div class="info">
                 <p>Home</p>
