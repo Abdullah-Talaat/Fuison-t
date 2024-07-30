@@ -956,7 +956,7 @@ async function upload() {
     let date = now.getFullYear() + " / " + (now.getMonth() + 1) + " / " + now.getDate();
     console.log(date);
     let newPost = {
-      bodyPost: narInpm.value.replace(/\n/g, '<br>'),
+      bodyPost: narInp.value.replace(/\n/g, '<br>'),
       name: nameInput,
       likes: 0,
       date: date,
