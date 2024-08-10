@@ -717,6 +717,7 @@ let usersf = [];
 let uId;
 let postsLike;
 let trueU;
+let token = "";
 async function sinUp() {
   if (
     sinUpName.value.trim() !== "" &&
@@ -780,6 +781,7 @@ for (let i = 0; i < usersf.length; i++) {
         name: sinUpName.value.trim(),
         phone: sinUpEmail.value.trim(),
         password: passwordSin.value.trim(),
+        token:`token-${sinUpEmail.value.trim()}-${passwordSin.value.trim()}-by${sinUpName.value.trim()}`,
         proImg: imgProUrl,
         liked: [],
         ture:false
@@ -798,6 +800,9 @@ try {
   // التأكد من وجود البيانات قبل الوصول إليها
   if (userData) {
     nameInput = userData.name;
+    token = userData.token;
+    localStorage.setItem("tokenStorg",token)
+    console.log(localStorage.getItem("tokenStorg").split("-"))
     if(userData.proImg != "") imgProUrl = userData.proImg;
     else imgProUrl = "pro1.jpeg";
     document.querySelector('#imgporfii').src = imgProUrl
@@ -817,9 +822,7 @@ try {
   lodingSean(false);
   alertt(`Error is: ${error}`, "red");
 }
-      
-      users.push(user);
-      localStorage.setItem("usersvfy", JSON.stringify(users));
+  
       }
     } else {
       alertt("sorry " + sinUpName.value.trim() + ". You can't enter to fusion. Because you are young. ","red")
@@ -840,7 +843,6 @@ function clearInluts() {
 function showApp() {
   document.querySelector(".login").style = `display:none `;
   document.querySelector(".navbar").style= `display:flex `;
-  colseUserPages();
 }
 async function login() {
 if (passwordLog.value.trim() !== "" && nameLog.value.trim() !== "") {
@@ -884,7 +886,9 @@ if (passwordLog.value.trim() !== "" && nameLog.value.trim() !== "") {
         uId = user.id;
         trueU = user.userDate.ture;
         users.push(user.userDate);
-        localStorage.setItem('usersvfy', JSON.stringify(users));
+        token = user.userDate.token;
+        localStorage.setItem("tokenStorg", token)
+        console.log(localStorage.getItem("tokenStorg").split("-"))
         break; // الخروج من الحلقة بعد العثور على المستخدم
       }
     }
@@ -913,23 +917,20 @@ sinUpBtn.onclick = function() {
 logInbtn.onclick = function() {
   login()
 }
-
-function loginWithPage(i) {
-  document.querySelector('#nameLog').value = users[i].phone;
-  document.querySelector('#passwordLog').value = users[i].password;
-  login();
+function loginWithToken(){
+  if(localStorage.getItem("tokenStorg") !== null){
+    let phone = localStorage.getItem("tokenStorg").split("-")[1];
+    let password = localStorage.getItem("tokenStorg").split("-")[2];
+    passwordLog.value = password;
+    nameLog.value = phone;
+    login();
+  }
 }
-
-if (users.length == 1) {
-  loginWithPage(0);
-}
-
+loginWithToken()
 function logOut() {
   document.querySelector(".login").style.display = "flex";
   document.querySelector(".navbar").style.display = "none";
-  userPages.style.display = 'flex';
   clearInluts();
-  showPages();
 }
 let userImgUpload = false;
 let imgch = document.getElementById("imgch")
@@ -1651,19 +1652,19 @@ for (let i = 0; i < posts.length; i++){
                                 </div>
                               </div>
                               <div class="chosesec">
-                                <div class="upload like choke" onclick="deletePostt('${posts[i].id}')">
+                                <div class="upload like choke" onclick="deletePostt('${posts[i].id}');profile()">
                                   <button id="deleteee" class="likee deleteee chokee">
                                     <p>delete</p>
                                     <span id="spanS" class="material-symbols-outlined">delete</span>
                                   </button>
                                 </div>
-                                <div class="upload like choke" onclick="com(${i})">
+                                <div class="upload like choke" onclick="com(${i});profile()">
                                   <button id="like" class="likee lookos chokee">
                                     <p id="lnn">${comentsLength}</p>
                                     <span id="spanSs" class="material-symbols-outlined spanS">comment</span>
                                   </button>
                                 </div>
-                                <div class="upload like choke" onclick="likee(${i})">
+                                <div class="upload like choke" onclick="likee(${i});profile()">
                                   <button id="like" class="likee lookos chokee">
                                     <p id="lnn">${posts[i].likes}</p>
                                     <span id="spanSs" class="material-symbols-outlined spanS">thumb_up</span>
@@ -1671,6 +1672,8 @@ for (let i = 0; i < posts.length; i++){
                                 </div>
                               </div>
                             </div>
+
+
     `;
     }
   }
