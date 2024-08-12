@@ -1804,3 +1804,11 @@ margin: 5px 0;
 .narinp{
   height: 700px;
 }
+#getToken{
+  padding: 5px 10px;
+  justify-content: center;
+  background:#2977F6;
+  color: #fff;
+  border-radius: 10px;
+  font-size: 20px;
+}

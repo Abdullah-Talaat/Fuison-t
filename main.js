@@ -840,6 +840,9 @@ function clearInluts() {
   nameLog.value = "";
   passwordLog.value = "";
 }
+function getToken() {
+  alertt(localStorage.getItem("tokenStorg"),"green");
+}
 function showApp() {
   document.querySelector(".login").style = `display:none `;
   document.querySelector(".navbar").style= `display:flex `;
@@ -848,7 +851,7 @@ async function login() {
 if (passwordLog.value.trim() !== "" && nameLog.value.trim() !== "") {
   usersf = [];
   lodingSean(true);
-
+  
   try {
     let querySnapshot = await db.collection('users').get();
     if (querySnapshot.empty) {
@@ -857,25 +860,32 @@ if (passwordLog.value.trim() !== "" && nameLog.value.trim() !== "") {
       querySnapshot.forEach((doc) => {
         let userDate = doc.data();
         usersf.push({
-            userDate: userDate,
-            id: doc.id
-          });
+          userDate: userDate,
+          id: doc.id
+        });
       });
-      
+  
     }
   } catch (error) {
     lodingSean(false);
     alertt(`error is: ${error}`, "red");
     return; // إنهاء العملية في حالة الخطأ
   }
-
+  
   let userLogin = false;
-
+  if (passwordLog.value.trim() === "token") {
+    let tokenLog = [];
+    tokenLog = nameLog.value.split('-');
+    console.log(tokenLog[1],tokenLog[2]);
+    
+    
+  
+  
   for (let i = 0; i < usersf.length; i++) {
     let user = usersf[i];
     if (user.userDate.password && user.userDate.phone) {
-      if (passwordLog.value.trim().toLocaleLowerCase() === user.userDate.password.toLocaleLowerCase() 
-      && nameLog.value.trim().toLocaleLowerCase() === user.userDate.phone.toLocaleLowerCase()) {
+      if (tokenLog[2].trim().toLocaleLowerCase() === user.userDate.password.toLocaleLowerCase() &&
+        tokenLog[1].trim().toLocaleLowerCase() === user.userDate.phone.toLocaleLowerCase()) {
         userLogin = true;
         nameInput = user.userDate.name;
         if (user.proImg != "") imgProUrl = user.userDate.proImg;
@@ -900,6 +910,45 @@ if (passwordLog.value.trim() !== "" && nameLog.value.trim() !== "") {
     showApp();
   } else {
     alertt("The password and (email or phone number) are incorrect", "red");
+  }
+
+  
+  }
+  else{
+    
+  
+  
+  for (let i = 0; i < usersf.length; i++) {
+    let user = usersf[i];
+    if (user.userDate.password && user.userDate.phone) {
+      if (passwordLog.value.trim().toLocaleLowerCase() === user.userDate.password.toLocaleLowerCase() &&
+        nameLog.value.trim().toLocaleLowerCase() === user.userDate.phone.toLocaleLowerCase()) {
+        userLogin = true;
+        nameInput = user.userDate.name;
+        if (user.proImg != "") imgProUrl = user.userDate.proImg;
+        else imgProUrl = "pro1.jpg";
+        document.querySelector('#imgporfii').src = imgProUrl
+        document.querySelector('#imgporfiii').src = imgProUrl
+        postsLike = user.userDate.liked;
+        uId = user.id;
+        trueU = user.userDate.ture;
+        users.push(user.userDate);
+        token = user.userDate.token;
+        localStorage.setItem("tokenStorg", token)
+        console.log(localStorage.getItem("tokenStorg").split("-"))
+        break; // الخروج من الحلقة بعد العثور على المستخدم
+      }
+    }
+  }
+
+  lodingSean(false);
+
+  if (userLogin) {
+    showApp();
+  } else {
+    alertt("The password and (email or phone number) are incorrect", "red");
+  }
+
   }
 } else if (passwordLog.value.trim() === "" && nameLog.value.trim() === "") {
   alertt("Fill in the field (email or phone number) and password", "red");
