@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <style>
+    .cimgpd {
+      width: 39px;
+      height: 39px;
+      border-radius: 50%;
+      border: 2px solid #000;
+      /* تحسين ترتيب الخواص */
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .cimgpd img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  </style>
+</head>
+
+<body>
+          <div class="coment1">
+                            <div class="profile-coment">
+                              <div class "boximgct">
+                                <img load="lazy" src="${storedComents[i].proUrl}" />
+                              </div>
+                              <p class="pro-name-com">${storedComents[i].nameComent}</p>
+                              <span class="material-symbols-outlined st" style="display:${trueDisplay}">check</span>
+                              <p class="comet-date-info">${storedComents[i].datecoment}</p>
+                            </div>
+                            <div class="info-txt-com">
+                              <p>${storedComents[i].bodyComent}</p>
+                            </div>
+                          </div>
+</body>
+
+</html>

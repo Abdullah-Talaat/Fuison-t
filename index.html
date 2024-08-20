@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html onload="likeLoad()" translate="no">
+<html translate = "no">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -13,18 +13,34 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <link rel="sourtcut icon" type="image/png" href="logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <link rel="sourtcut icon" type="image/png" href="./logo-192×192.png">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     
     <!-- style -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css"/>
     <!-- firebase -->
 
 
-<script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-storage-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-storage-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.21.0/firebase-firestore-compat.js"></script>
+  <script>
+    // تكوين Firebase
+    const firebaseConfig = {
+        apiKey: "AIzaSyC2oLuDwObmTkwi3wXRu3qTi9IfkLxMsjg",
+        authDomain: "fuison.firebaseapp.com",
+        projectId: "fuison",
+        storageBucket: "fuison.appspot.com",
+        messagingSenderId: "272997929295",
+        appId: "1:272997929295:web:bec659cdb8efa26192f53a",
+        measurementId: "G-6030NS4W6P"
+      };
+        // تهيئة Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    const storage = firebase.storage();
+  </script>
  </head>
   <body class="body">
     <section class="over-lay">
@@ -134,7 +150,7 @@
              <div class="info">
                 <p class="infoo">Abdullah Talaat</p>
                </div>
-              <div class="imge-pro">
+              <div class="box-pro-im">
                 <img load="lazy"  src = "pro1.jpg" alt="">
              </div>
            </a>
@@ -148,7 +164,7 @@
                    <div class="info">
                      <p class="infooo">Abdullah Talaat</p>
                    </div>
-                   <div class="imge-pro">
+                   <div class="box-pro-im">
                      <img load="lazy"  src = "pro1.jpg" alt="">
                    </div>
                </a>
@@ -162,7 +178,7 @@
                    <div class="info">
                      <p class="infoooo">Abdullah Talaat</p>
                    </div>
-                   <div class="imge-pro">
+                   <div class="box-pro-im">
                      <img load="lazy"  src = "pro1.jpg" alt="">
                    </div>
                </a>
@@ -192,93 +208,93 @@
           <div class="pross">
             <div class="iamgss">
               <div class="info"><p>Abdullah Talaat</p></div>
-            <div class="imge-pro">
+            <div class="box-pro-im">
               <img load="lazy"  src = "pro1.jpg" alt="">
-              <span class="sss"> </span>
+
             </div>
             </div>
                   <div class="iamgss">
               <div class="info"><p>Abdullah Talaat</p></div>
-            <div class="imge-pro">
+            <div class="box-pro-im">
               <img load="lazy"  src = "pro1.jpg" alt="">
-              <span class="sss"> </span>
+
             </div>
             </div>
                   <div class="iamgss">
               <div class="info"><p>Abdullah Talaat</p></div>
-            <div class="imge-pro">
+            <div class="box-pro-im">
               <img load="lazy"  src = "pro1.jpg" alt="">
-              <span class="sss"> </span>
+
             </div>
             </div>
                   <div class="iamgss">
               <div class="info"><p>Abdullah Talaat</p></div>
-            <div class="imge-pro">
+            <div class="box-pro-im">
               <img load="lazy"  src = "pro1.jpg" alt="">
-              <span class="sss"> </span>
+
             </div>
             </div>
                   <div class="iamgss">
               <div class="info"><p>Abdullah Talaat</p></div>
-            <div class="imge-pro">
+            <div class="box-pro-im">
               <img load="lazy"  src = "pro1.jpg" alt="">
-              <span class="sss"></span>
+
             </div>
             </div>
                         <div class="iamgss">
               <div class="info"><p>Abdullah Talaat</p></div>
-            <div class="imge-pro">
+            <div class="box-pro-im">
               <img load="lazy"  src = "pro1.jpg" alt="">
-              <span class="sss"> </span>
+
             </div>
             </div>
                   <div class="iamgss">
               <div class="info"><p>Abdullah Talaat</p></div>
-            <div class="imge-pro">
+            <div class="box-pro-im">
               <img load="lazy"  src = "pro1.jpg" alt="">
-              <span class="sss"> </span>
+
             </div>
             </div>
                   <div class="iamgss">
               <div class="info"><p>Abdullah Talaat</p></div>
-            <div class="imge-pro">
+            <div class="box-pro-im">
               <img load="lazy"  src = "pro1.jpg" alt="">
-              <span class="sss"> </span>
+
             </div>
             </div>
                   <div class="iamgss">
               <div class="info"><p>Abdullah Talaat</p></div>
-            <div class="imge-pro">
+            <div class="box-pro-im">
               <img load="lazy"  src = "pro1.jpg" alt="">
-              <span class="sss"></span>
+
             </div>
             </div>
                   <div class="iamgss">
               <div class="info"><p>Abdullah Talaat</p></div>
-            <div class="imge-pro">
+            <div class="box-pro-im">
               <img load="lazy"  src = "pro1.jpg" alt="">
-              <span class="sss"> </span>
+
             </div>
             </div>
                   <div class="iamgss">
               <div class="info"><p>Abdullah Talaat</p></div>
-            <div class="imge-pro">
+            <div class="box-pro-im">
               <img load="lazy"  src = "pro1.jpg" alt="">
-              <span class="sss"> </span>
+
             </div>
             </div>
                   <div class="iamgss">
               <div class="info"><p>Abdullah Talaat</p></div>
-            <div class="imge-pro">
+            <div class="box-pro-im">
               <img load="lazy"  src = "pro1.jpg" alt="">
-              <span class="sss"> </span>
+
             </div>
             </div>
                   <div class="iamgss">
               <div class="info"><p>Abdullah Talaat</p></div>
-            <div class="imge-pro">
+            <div class="box-pro-im">
               <img load="lazy"  src = "pro1.jpg" alt="">
-              <span class="sss"></span>
+
             </div>
             </div>
       
@@ -295,7 +311,7 @@
             <div class="containerq rrt">
             <div class="nasher nnu1">
               <div class="input" style="display: flex;flex-direction: column">
- <textarea id="narInp" class="narinpc" style = "heght:600px; width: 600px">
+ <textarea id="narInp"  class="narinpc"  class="form-control" id="exampleFormControlTextarea1" rows="3">
       </textarea>
       <button onclick = "chn(1)" class="material-symbols-outlined chimgbtn">photo_camera</button>
               </div>
@@ -312,12 +328,14 @@
 
                   <div class="nasher nnu2">
               <div class="input"style="display: flex;flex-direction: column">
- <textarea id="narInpm" class="narinpc" style = "heght:600px; width: 600px">
+ <textarea id="narInpm" class="narinpc" >
  </textarea>
    <input type="file" id="imgch" style="display: none">
    <label for="imgch" class="imgchl">chose image</label>
    <!--imgch, imgu-->
-   <img class="imgu" style="max-height: 300px;max-width: 300px ;padding-left: 10px ;display: none">
+   <div class="imgud">
+        <img class="imgu">
+   </div>
          <button onclick = "chn(2)"class="material-symbols-outlined chimgbtn">edit</button>
 
               </div>
@@ -331,30 +349,144 @@
               </div>
             </div>
   
-            
+   
               <div id="posts">
       
               </div>
       </div>
+         </div>
+          <div id="chatsF">
+            <div class="containerq rrt">
+              <div class="search-f">
+                <input type="search" name="" id="inpSF" placeholder="search in your friends">
+                <button id="BtnSF" class="btn-s-f" onclick="searchChats()" class="material-symbols-outlined">search</button>
+              </div>
+              
+              <div id="friendsFolloes"></div>
             </div>
-          
-         <div class="profiledivp">
-        <div class="containerq rrtuy">
+          </div> 
+                    <div id="chatsM">
+                      <div class="containerq rrt msg-contener" style="margin-top: 75px">
+                        <div class="headV">
+                          <button id="bake"onclick="getAllChats()" class="material-symbols-outlined"><span class="material-symbols-outlined">
+                            arrow_back
+                          </span></button>
+                          <div class="pro-info-ch">
+                            <p class="ch-name">name</p>
+                            <div class="box-pro-im" style="heght: 20%;">
+                             <img loading="lazy"class="ch-img"  src="pro1.jpeg" alt="">
+                            </div>
+                          </div>
+                        </div>
+                        <div id="chatsD" style="margin-top: 10%;">
+                          <div class="you" style="justify-content: right;">
+                            <div class="msg-chat" style="border-radius: 20px 0 20px  20px">
+                              <p id="nameChat">name</p>
+                              <p>messag</p>
+                            </div>
+                            <div class="box-pro-im" style="heght: 20%;">
+                              <img loading="lazy" src="pro1.jpeg" alt="">
+                            </div>
+                          </div>
+                          <div class="you" style="justify-content:left ;">
+                            <div class="box-pro-im" style="heght: 20%;">
+                              <img loading="lazy" src="pro1.jpeg" alt="">
+                            </div>
+                            <div class="msg-chat" style="border-radius:0 20px 20px 20px">
+                              <p id="nameChat">name</p>
+                              <p>messag</p>
+                            </div>
+                          </div>
+                          <div class="you" style="justify-content: right;">
+                            <div class="msg-chat" style="border-radius: 20px 0 20px  20px">
+                              <p id="nameChat">name</p>
+                              <p>messag</p>
+                            </div>
+                            <div class="box-pro-im" style="heght: 20%;">
+                              <img loading="lazy" src="pro1.jpeg" alt="">
+                            </div>
+                          </div>
+                          <div class="you" style="justify-content:left ;">
+                            <div class="box-pro-im" style="heght: 20%;">
+                              <img loading="lazy" src="pro1.jpeg" alt="">
+                            </div>
+                            <div class="msg-chat" style="border-radius:0 20px 20px 20px">
+                              <p id="nameChat">name</p>
+                              <p>messag</p>
+                            </div>
+                          </div>
+                          <div class="you" style="justify-content: right;">
+                            <div class="msg-chat" style="border-radius: 20px 0 20px  20px">
+                              <p id="nameChat">name</p>
+                              <p>messag</p>
+                            </div>
+                            <div class="box-pro-im" style="heght: 20%;">
+                              <img loading="lazy" src="pro1.jpeg" alt="">
+                            </div>
+                          </div>
+                          <div class="you" style="justify-content:left ;">
+                            <div class="box-pro-im" style="heght: 20%;">
+                              <img loading="lazy" src="pro1.jpeg" alt="">
+                            </div>
+                            <div class="msg-chat" style="border-radius:0 20px 20px 20px">
+                              <p id="nameChat">name</p>
+                              <p>messag</p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="search-f send-m">
+                          <textarea type="text" name="" id="inpsend"></textarea>
+                          <button id="btnSend" class="btn-s-f" class="material-symbols-outlined">send</button>
+                        </div>
+                      </div>
+                      </div>
+          <div class="profiledivp">
+        <div class="containerq rrt pro-sec">
+                             <div class="userDdiv-d">
+                               <div class="img-u-d">
+                                 <img src="pro1.jpeg" alt="" id="imgPU">
+                               </div>
+                     <div class="name-f">
+                       <p id="namePU">name-name</p>
+                       <p id="followersPU">0</p>
+                     </div>                               
+                             </div>
           <button onclick="getToken()" id="getToken">get token</button>
+                             <hr class="fasel">
           <div id="postsPro"></div>
         </div>
       </div>
+               <div class="profileasuer">
+                 <div class="containerq rrt">
+                   <div class="pro-sec">
+                     <div class="userDdiv-d">
+                       <div class="pro-ccd" style="height: 100px;width: 100px">
+                         <img class="pro-cc" src="pro1.jpeg" alt="" id="imgSAU">
+                       </div>
+                       <div class="name-f">
+                         <p id="nameSAU">name-name</p>
+                         <p id="followers">0</p>
+                       </div>
+                     </div>
+                     <div class="follow">
+                       <button id="follow">follow</button>
+                    </div>
+                   </div>
+                   <hr class="fasel">
+                 <div id="postsProU"></div>
+                </div>
+               </div>
           <!--friends-->
           
               <div id="friends">
-      <div class="containerq rrrt">
+      <div class="containerq rrt">
       <div class="search-box">
         <div class="input-search">
           <input  onkeyup="searchere(this.value)" placeholder="search" type="text" class="input-s" name="" id="inputSs">
         </div>
         <div class="buttons-search">
-          <button onclick="getSearchMood(this.id)" class="upload" id="byOpject">search by object</button>
-          <button onclick="getSearchMood(this.id)" class="upload" id="byName">search by name</button>
+          <button onclick="getSearchMood(this.id)" class="upload" id="byOpject">object</button>
+          <button onclick="getSearchMood(this.id)" class="upload" id="byName">name</button>
         </div>
       </div>
       <div id="postsSsearch"></div>
@@ -362,7 +494,7 @@
           </div>
           <!--videos-->
           <div id="book">
-      <div class="containerq rrrrt">
+      <div class="containerq rrt">
         <div class="connect-with-us">
           <h2 class="title title-q">Social Media</h2>
           <div class="icons">
@@ -371,7 +503,7 @@
          <a class="fab fa-tiktok icon" href="#"></a>
           </div>
         </div>
-            <div class="connect-with-us connect-with-uss">
+        <div class="connect-with-us connect-with-uss">
           <h2 class="title title-q">Or you can come together through</h2>
           <div class="icons">
         <a class="fab fa-whatsapp icon" href="#"></a>
@@ -380,12 +512,14 @@
           </div>
           
         </div>
-        
+       <h2 class="title title-q">important posts</h2>
+       <div id="postsImport">
+       </div>
       </div> 
           </div>
           <!--book-->
           <div id="videos">
-      <div class="containerq rrrrrt">
+      <div class="containerq rrt">
         <div class="search-initims">
           <input type="text" name="" id="inpSI" placeholder="ادخل اسم المنتج">
           <button id="btnS" onclick="toPlastent()" class="material-symbols-outlined btn-s" >search</button>
@@ -396,7 +530,7 @@
       </div>
             </div>
           </div>
-        
+        <!-- rrrrrt  -->
         <!--rigt-->
         <div class="right-s"><div class="p"></div>
       <!--  <div class="nav-meno">-->
@@ -405,9 +539,9 @@
             <div id="nee">
                         <div class="Iamgss nev neev">
               <div class="info"><p>Abdullah Talaat</p></div>
-            <div class="imge-pro iiimm">
+            <div class="box-pro-im iiimm">
               <img load="lazy"  src = "pro1.jpg" alt="">
-              <span class="sss"></span>
+
             </div>
             </div>
 
@@ -416,8 +550,8 @@
                                           <p>Profile</p>
                                         </div>
                                         <button class="material-symbols-outlined w" id="n2">
-                                                              <div class="box-pro-im">
-                                                                <img load="lazy" id="imgporfiii" alt="">
+                                                              <div class="pro-ccd">
+                                                                <img load="lazy" id="imgporfiii" alt="" class="pro-cc">
                                                               </div>
                                         </button>
                                       </div>
@@ -429,6 +563,15 @@
                 home
               </button>
             </div>
+                                                <div onclick="getAllChats()" class="nas">
+                                      <div class="info">
+                                        <p>Messenger</p>
+                                      </div>
+                                      <button class="material-symbols-outlined w" id="n2">
+                                        chat
+                                      </button>
+                                    </div>
+      
                         <div class="nas" onclick="n22()">
                     <div class="info">
                       <p>Search</p>
@@ -460,7 +603,6 @@
         dark_mode
             </button>
             </div>
-      
             <div class="nas">
               <div class="info" onclick="logOut()">
               <p style="color: red">Log out</p></div>
@@ -526,15 +668,6 @@
               </div>
               <button class="material-symbols-outlined w" id="n2">
             stadia_controller
-              </button>
-            </div>
-      
-                        <div class="nas">
-              <div class="info">
-                <p>Messenger</p>
-              </div>
-              <button class="material-symbols-outlined w" id="n2">
-                chat
               </button>
             </div>
             <div class="nas">
@@ -618,7 +751,6 @@
       </div>
       </div>
       
-        <!-- script -->
          <nav class="navbar">
               <ul class="navbar-menu">
                  <li onclick="n44()" class="material-symbols-outlined necv nave naveev" id="n24">question_mark</li>
@@ -627,10 +759,19 @@
                   <li onclick="n11()" class="material-symbols-outlined nave necv naveev" id="n21">home</li>
            </ul>
           </nav>
-      <script  src="main.js"></script>
-      <script  src="senah.js"  ></script>
-      <script src = "swr.js"></script>
-      <script src = "toPlasten.js"></script>
+      <!-- script -->
+      <script src="let_mood.js"></script>
+      <script src="let_style.js"></script>
+      <script src="style.js"></script>
+      <script src="login.js"></script>
+      <script src="main.js"></script>
+      <script src="chat.js"></script>
+      <script src="profile.js"></script>
+      <script src="mood.js"></script>
+      <script src="senah.js"></script>
+      <script src="swr.js"></script>
+      <script src="toPlasten.js"></script>
+      <script src="error.js"></script>
   </body>
 
 </html>
