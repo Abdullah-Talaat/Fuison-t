@@ -49,27 +49,28 @@ let lbprofileImageSin = document.querySelector('.lbprofileImageSin');
 let boximgsinImg = document.querySelector('.box-img-sin img')
 let boximgsin = document.querySelector('.box-img-sin')
 async function getImgProfile() {
+  // تحقق من وجود fileImgPro وتأكد من وجود ملف
+  if (!fileImgPro || !fileImgPro.files || !fileImgPro.files[0]) {
+    alertt("No file selected. Please choose an image.", "red");
+    return;
+  }
+
   lodingSean(true);
   let file = fileImgPro.files[0];
 
-  if (file) {
-    let storageRef = storage.ref().child(`profile/${file.name}`);
-    try {
-      await storageRef.put(file);
-      imgProUrl = await storageRef.getDownloadURL();
-      boximgsinImg.src = imgProUrl;
-      
-      lbprofileImageSin.style.display = "none";
-      boximgsin.style.display = "flex";
-      lodingSean(false);
-      alertt(imgProUrl, "green");
-    } catch (error) {
-      lodingSean(false);
-      alertt(`Error is: ${error}`, "red");
-    }
-  } else {
-    lodingSean(false); // تأكد من إيقاف مؤشر التحميل في حالة عدم وجود ملف
-    console.log("Image is not defined"); // استخدام تنبيه بدلاً من console.log
+  let storageRef = storage.ref().child(`profile/${file.name}`);
+  try {
+    await storageRef.put(file);
+    let imgProUrl = await storageRef.getDownloadURL();
+    boximgsinImg.src = imgProUrl;
+
+    lbprofileImageSin.style.display = "none";
+    boximgsin.style.display = "flex";
+    lodingSean(false);
+    alertt(imgProUrl, "green");
+  } catch (error) {
+    lodingSean(false);
+    alertt(`Error: ${error.message}`, "red");
   }
 }
 let users1 = JSON.parse(localStorage.getItem("usersvf")) || [];
