@@ -149,6 +149,8 @@ for (let i = 0; i < usersf.length; i++) {
         token:`token-${sinUpEmail.value.trim()}-${passwordSin.value.trim()}-by${sinUpName.value.trim()}`,
         proImg: imgProUrl,
         liked: [],
+        followed: [],
+        followers: 0,
         ture:false
       };
 
