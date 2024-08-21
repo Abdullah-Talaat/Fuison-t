@@ -61,7 +61,7 @@ async function getImgProfile() {
   let storageRef = storage.ref().child(`profile/${file.name}`);
   try {
     await storageRef.put(file);
-    let imgProUrl = await storageRef.getDownloadURL();
+    imgProUrl = await storageRef.getDownloadURL();
     boximgsinImg.src = imgProUrl;
 
     lbprofileImageSin.style.display = "none";
