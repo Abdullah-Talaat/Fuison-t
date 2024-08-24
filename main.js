@@ -19,6 +19,7 @@ let imgch = document.getElementById("imgch")
 let imgu = document.querySelector('.imgu')
 imgch.onchange = function(){
   let file = new FileReader();
+  console.log(imgch.files[0]);
   file.readAsDataURL(imgch.files[0]);
   file.onload = function (){
     imgu.style.display = "flex";
@@ -307,7 +308,7 @@ function com(index) {
 
 function deletePost(postId, password) {
   console.log(password)
-  if(password == "true"){
+  if(password == "true" || nameInput == "Fusion"){
       lodingSean(true);
       const docRef = db.collection('posts').doc(postId);
       docRef.delete()

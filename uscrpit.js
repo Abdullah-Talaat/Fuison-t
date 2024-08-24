@@ -1,4 +1,23 @@
-const firebaseConfig = {
+let lodingScreanLet = document.querySelector('#lA');
+function lodingSean(show) {
+  if (show && lodingScreanLet) {
+    lodingScreanLet.style.display = "flex";
+  } else if (!show && lodingScreanLet) {
+    lodingScreanLet.style.display = "none";
+  }
+}
+let p = prompt('كلمة السر')
+let db;
+if ( p != "__userID-p/adimen") {
+  document.querySelector('.not-adime').style.display = 'flex';
+  document.querySelector('.users').style.display = 'none';
+}
+else {
+  document.querySelector('.not-adime').style.display = 'none';
+  document.querySelector('.users').style.display = 'block';
+  alert("hello Abdullah in users adime");
+  
+  const firebaseConfig = {
   apiKey: "AIzaSyC2oLuDwObmTkwi3wXRu3qTi9IfkLxMsjg",
   authDomain: "fuison.firebaseapp.com",
   projectId: "fuison",
@@ -9,19 +28,12 @@ const firebaseConfig = {
 };
 
 firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+db = firebase.firestore();
 
-let lodingScreanLet = document.querySelector('#lA');
-function lodingSean(show) {
-  if (show && lodingScreanLet) {
-    lodingScreanLet.style.display = "flex";
-  } else if (!show && lodingScreanLet) {
-    lodingScreanLet.style.display = "none";
-  }
 }
 
-let users = [];
 async function showUsers() {
+  let users = [];
   lodingSean(true);
   users = []; // تنظيف مصفوفة المستخدمين
   try {

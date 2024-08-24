@@ -87,7 +87,7 @@ let token = "";
 async function sinUp() {
   if (
     sinUpName.value.trim() !== "" &&
-    sinUpName.value.trim() !== "عبدالله شخه" &&
+    !sinUpName.value.trim().includes("عبدالله ")&&
     sinUpEmail.value.trim() !== "" &&
     dateYearSin.value.trim() !== "" &&
     dateMontheSin.value.trim() !== "" &&
