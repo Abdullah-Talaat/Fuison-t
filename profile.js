@@ -30,16 +30,7 @@ let proopost = document.getElementById("postsPro")
   else console.log("nn");
 }
 let followBtn = document.getElementById('follow');
-function followed(t) {
-  if (t) {
-    followBtn.innerHtml = 'follow';
-    followBtn.style.background = "#2977F6";
-  }
-  else {
-    followBtn.innerHtml = 'followed';
-    followBtn.style.background = "#B4B4BA";
-  }
-}
+
 let nameAuS = '';
 
 function uAsPro(name) {
@@ -68,24 +59,50 @@ function uAsPro(name) {
         getToken();
       };
 
-      // تحديث زر المتابعة
-      let isFollowing = false;
-      for (let j = 0; j < usersf.length; j++) {
-        if (usersf[j].userDate.name === nameInput) {
-          isFollowing = usersf[j].userDate.followed.includes(name);
-          followBtn.style.background = isFollowing ? "#B4B4BA" : "#2977F6";
-        }
-      }
     } else if (user.name === name) {
       document.getElementById("imgSAU").src = user.proImg;
       document.getElementById("nameSAU").innerText = user.name;
       document.getElementById("followers").innerText = user.followers;
-      followBtn.innerHTML = 'follow';
+      
+            for (let k in usersf) {
+              if (usersf[k].userDate.name == nameInput) {
+                for (let e in usersf) {
+                  if (usersf[e].userDate.name == user.name) {
+                    if (usersf[k].userDate.followed.includes(user.name)) {
+                      followBtn.style.background = "#B4B4BA";
+                      followBtn.innerHTML = "unfollow";
+                    }
+                    else {
+                      followBtn.style.background = "#2977F6";
+                      followBtn.innerHTML = "follow";
+                    }
+                  }
+                }
+              }
+            }
+
       followBtn.onclick = function () {
+                for (let k in usersf) {
+                  if (usersf[k].userDate.name == nameInput) {
+                    for (let e in usersf) {
+                      if (usersf[e].userDate.name == user.name) {
+                        if (usersf[k].userDate.followed.includes(user.name)) {
+                          followBtn.style.background = "#B4B4BA";
+                          followBtn.innerHTML = "unfollow";
+                        }
+                        else {
+                          followBtn.style.background = "#2977F6";
+                          followBtn.innerHTML = "follow";
+                        }
+                      }
+                    }
+                  }
+                }
+                };        
+  
         follow(user.name);
         uAsPro(name);
-      };
-      break;
+        break;
     }
   }
 
@@ -139,8 +156,7 @@ async function follow(name) {
           
                       const user1Ref = db.collection('users').doc(usersf[j].id);
                       await user1Ref.update({ followed: user1.followed });
-          
-                      followed(true);
+
                     } catch (error) {
                       alertt(`Error: ${error}`, "red");
                       console.log(error)
@@ -161,8 +177,7 @@ async function follow(name) {
           
                       const user1Ref = db.collection('users').doc(usersf[j].id);
                       await user1Ref.update({ followed: user1.followed });
-          
-                      followed(false);
+
                     } catch (error) {
                       alertt(`Error: ${error}`, "red");
                       console.log(error)
@@ -175,6 +190,7 @@ async function follow(name) {
       }
     }
   }
+  
 }
 function postsImport() {
   let postsIm = "";
