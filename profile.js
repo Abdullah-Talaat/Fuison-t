@@ -1,8 +1,32 @@
+let usersfP = [];
+function fechUsers() {
+  lodingSean(true);
+
+  // إعادة تعيين مصفوفة المنشورات
+
+
+  const collectionRef = db.collection("users");
+
+  collectionRef.onSnapshot((querySnapshot) => {
+    usersfP = [];
+    querySnapshot.forEach((doc) => {
+      
+      
+      usersfP.push({
+        userDate: doc.data(),
+        id: doc.id
+      });
+      
+    });
+});
+}
+fechUsers();
+
 let postsPro ;
 function profile() {
-  console.log(usersf)
-  for (let i in usersf) {
-    let user = usersf[i].userDate;
+  console.log(usersfP)
+  for (let i in usersfP) {
+    let user = usersfP[i].userDate;
     if (user.name === nameInput) {
      document.getElementById("imgPU").src = user.proImg;
      document.getElementById("namePU").innerText = user.name;
@@ -15,186 +39,151 @@ function profile() {
   document.querySelector('.profileasuer').style.display = "none";
   document.querySelector('#chatsF').style.display = "none";
   document.getElementById("chatsM").style.display = "none";
-      let poststg = "";
-for (let i = 0; i < posts.length; i++){
-        if(posts[i].name == nameInput){
-    poststg += post(i);
-    }
-  }
-let proopost = document.getElementById("postsPro")
-
-  if(proopost){
-        proopost.innerHTML = poststg;
-        console.log(true)
-  }
-  else console.log("nn");
+  let newPosts = posts.filter(post => post.name === nameInput);
+  
+  showPost(newPosts, "postsPro");
+  
+  newPosts = [];
 }
 let followBtn = document.getElementById('follow');
 
 let nameAuS = '';
 
 function uAsPro(name) {
-  let nameAuS = name;
-  
-  // عرض أو إخفاء العناصر
-  disNav(document.querySelector('.profileasuer'), book, friends, videos);
-  document.querySelector('.profiledivp').style.display = "none";
-  home.style.display = "none";
-  document.querySelector('.profileasuer').style.display = "flex";
+  console.log(name); // Optional: Log the name for debugging
+
+  // Show/hide elements based on name
+  document.querySelector('.profileasuer').style.display = name ? "flex" : "none";
+  document.querySelector('.profiledivp').style.display = name ? "none" : "flex";
+  home.style.display = name ? "none" : "flex";
   document.querySelector('#chatsF').style.display = "none";
   document.getElementById("chatsM").style.display = "none";
-  // التحقق من وجود usersf وكونه مصفوفة
-  if (!Array.isArray(usersf)) {
-    console.error("usersf is not defined or is not an array.");
-    return;
-  }
-
-  for (let i = 0; i < usersf.length; i++) {
-    let user = usersf[i].userDate;
-    if (user.name === name && user.name === nameInput) {
-      document.getElementById("imgSAU").src = user.proImg;
-      document.getElementById("nameSAU").innerText = user.name;
-      followBtn.innerHTML = 'get token';
-      followBtn.onclick = function () {
-        getToken();
-      };
-
-    } else if (user.name === name) {
-      document.getElementById("imgSAU").src = user.proImg;
-      document.getElementById("nameSAU").innerText = user.name;
-      document.getElementById("followers").innerText = user.followers;
-      
-            for (let k in usersf) {
-              if (usersf[k].userDate.name == nameInput) {
-                for (let e in usersf) {
-                  if (usersf[e].userDate.name == user.name) {
-                    if (usersf[k].userDate.followed.includes(user.name)) {
-                      followBtn.style.background = "#B4B4BA";
-                      followBtn.innerHTML = "unfollow";
-                    }
-                    else {
-                      followBtn.style.background = "#2977F6";
-                      followBtn.innerHTML = "follow";
-                    }
-                  }
-                }
-              }
-            }
-
-      followBtn.onclick = function () {
-                for (let k in usersf) {
-                  if (usersf[k].userDate.name == nameInput) {
-                    for (let e in usersf) {
-                      if (usersf[e].userDate.name == user.name) {
-                        if (usersf[k].userDate.followed.includes(user.name)) {
-                          followBtn.style.background = "#B4B4BA";
-                          followBtn.innerHTML = "unfollow";
-                        }
-                        else {
-                          followBtn.style.background = "#2977F6";
-                          followBtn.innerHTML = "follow";
-                        }
-                      }
-                    }
-                  }
-                }
-                };        
   
-        follow(user.name);
-        uAsPro(name);
-        break;
-    }
-  }
-
-  let postsContainer = document.getElementById("postsProU");
-  let postsHTML = "";
-
-  // التحقق من وجود posts وكونه مصفوفة
-  if (!Array.isArray(posts)) {
-    console.error("posts is not defined or is not an array.");
+  let newPosts = posts.filter(post => post.name === name);
+  
+  // تحقق مما إذا كانت المصفوفة newPosts تحتوي على العناصر الصحيحة
+  console.log(newPosts);
+  
+  showPost(newPosts, "postsProU");
+  
+  newPosts = [];
+  // Check if usersfP is defined and an array
+  if (!Array.isArray(usersfP)) {
+    console.error("usersfP is not defined or is not an array.");
     return;
   }
+  
+  let user;
+   
+   for (let index in usersfP) {
+     if(usersfP[index].userDate.name === name) {
+       console.log(usersfP[index])
+       user = usersfP[index];
+     }
+   }
+    document.getElementById("imgSAU").src = user.userDate.proImg;
+    document.getElementById("nameSAU").innerText = user.userDate.name;
+    document.getElementById("followers").innerText = user.userDate.followers;
 
-  for (let i = 0; i < posts.length; i++) {
-    if (posts[i].name === name) {
-      postsHTML += post(i);
+    updateFollowButton(user.userDate.name); // Call separate function for follow button handlin
+}
+
+function updateFollowButton(name) {
+  let userIndex = 0;
+  for (let i in usersfP) {
+    if (usersfP[i].userDate.name === nameInput) {
+      userIndex = i;
     }
   }
+  
+  let user;
+  for (let i2 in usersfP) {
+    if (usersfP[i2].userDate.name === name) {
+      user = usersfP[i2];
+    }
+  }
+  if (userIndex !== -1) {
+    const followedList = usersfP[userIndex].userDate.followed;
+    const isFollowing = followedList.includes(user.userDate.name);
 
-  if (postsContainer) {
-    postsContainer.innerHTML = postsHTML;
-    console.log("Profile and posts updated successfully.");
-  } else {
-    console.error("postsProU element not found.");
+    followBtn.style.background = isFollowing ? "#B4B4BA" : "#2977F6";
+    followBtn.innerHTML = isFollowing ? "unfollow" : "follow";
+
+    followBtn.onclick = function() {
+      follow(name); // Call follow function for handling follow logic
+    };
   }
 }
 
 async function follow(name) {
   lodingSean(true);
-  let userFound = false;
 
-  for (let i in usersf) {
-    let user = usersf[i].userDate;
+  let mainU;
 
-    if (user.name === name) {
-      userFound = true;
-
-      for (let j in usersf) {
-        let user1 = usersf[j].userDate;
-        console.log(user1.name == nameInput)
-        if(user1.name == nameInput){
-          lodingSean(false);
-          if (user1.followed.includes(name)) {
-                    // إذا كان المستخدم متابعاً بالفعل
-                    let foll = --user.followers;
-                    lodingSean(true);
-                    try {
-                      const userRef = db.collection('users').doc(usersf[i].id);
-                      await userRef.update({ followers: foll });
-          
-                      user1.followed = removeElement(user1.followed, name);
-          
-                      const user1Ref = db.collection('users').doc(usersf[j].id);
-                      await user1Ref.update({ followed: user1.followed });
-
-                    } catch (error) {
-                      alertt(`Error: ${error}`, "red");
-                      console.log(error)
-                    } finally {
-                      lodingSean(false);
-                    }
-            return;
-          }
-          else {
-                    // إذا كان المستخدم غير متابع
-                    let foll = ++user.followers;
-                    lodingSean(true)
-                    try {
-                      const userRef = db.collection('users').doc(usersf[i].id);
-                      await userRef.update({ followers: foll });
-          
-                      user1.followed.push(name);
-          
-                      const user1Ref = db.collection('users').doc(usersf[j].id);
-                      await user1Ref.update({ followed: user1.followed });
-
-                    } catch (error) {
-                      alertt(`Error: ${error}`, "red");
-                      console.log(error)
-                    } finally {
-                      lodingSean(false);
-                    }
-                    return
-                  }
-        } 
-      }
+  for (let iU in usersfP) {
+    if (usersfP[iU].userDate.name === nameInput) {
+      mainU = usersfP[iU];
     }
   }
+
+  let clickU;
+
+  for (let iC in usersfP) {
+    if (usersfP[iC].userDate.name === name) {
+      clickU = usersfP[iC];
+    }
+  }
+
+  function removeElement(array, element) {
+    return array.filter(e => e !== element);
+  }
+
+  if (mainU.userDate.followed.includes(name)) {
+    try {
+      // إنقاص عدد المتابعين
+      let newFollowers = clickU.userDate.followers - 1;
+      let newFollowed = removeElement(mainU.userDate.followed, name);
+
+      // تحديث في قاعدة البيانات
+      const userRefU = db.collection('users').doc(clickU.id);
+      await userRefU.update({ followers: newFollowers });
+
+      const userRefM = db.collection('users').doc(mainU.id);
+      await userRefM.update({ followed: newFollowed });
+
+      lodingSean(false);
+      updateFollowButton(name)
+    } catch (e) {
+      lodingSean(false);
+      alert(e, 'red');
+    }
+  } else {
+    try {
+      // زيادة عدد المتابعين
+      let newFollowers = clickU.userDate.followers + 1;
+      let newFollowed = [...mainU.userDate.followed, name]; // دمج الاسم الجديد مع المتابعين
+
+      // تحديث في قاعدة البيانات
+      const userRefU = db.collection('users').doc(clickU.id);
+      await userRefU.update({ followers: newFollowers });
+
+      const userRefM = db.collection('users').doc(mainU.id);
+      await userRefM.update({ followed: newFollowed });
+
+      lodingSean(false);
+      updateFollowButton(name)
+    } catch (e) {
+      lodingSean(false);
+      alert(e, 'red');
+    }
+  }
+
   
 }
+// Improved 'follow' function already provided in the previous response
+
 function postsImport() {
   let postsIm = "";
-
   for (let i = 0; i < posts.length; i++) {
     if (posts[i].name === "Fusion") {
       let imgDisplay = posts[i].src ? "flex" : "none";

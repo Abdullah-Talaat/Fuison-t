@@ -11,6 +11,8 @@ function getAllChats() {
         usersf.forEach(potentialChatUser => {
           let potentialUserData = potentialChatUser.userDate;
           if (potentialUserData.name === followedUser) {
+            let key = `${potentialUserData.name}_${nameInput}_seacrtKey/0727498je8eo`
+            
             chatsFolloes += `
               <div onclick="showChat('${potentialUserData.name}','${potentialUserData.proImg}')" style="font-size: 20px" class="friend-foll">
                 ${potentialUserData.name}
@@ -87,6 +89,7 @@ function sendMsg(name, body, imgSrc, key) {
 
 let chatData = [];
 function getChatByID(key) {
+  /*
   lodingSean(true);
   db.collection('chats').orderBy("timestamp", "asc").get()
        .then((querySnapshot) => {
@@ -110,6 +113,30 @@ function getChatByID(key) {
          console.error("Error getting chats: ", error);
          lodingSean(false);
        });
+       */
+       lodingSean(true);
+       
+       const collectionRef = db.collection("chats").orderBy("timestamp", "asc");
+       try{
+         lodingSean(false)
+         collectionRef.onSnapshot((querySnapshot) => {
+                  allChats = [];
+                  querySnapshot.forEach((doc) => {
+                    allChats.push({
+                      data: doc.data(),
+                      id: doc.id
+                    });
+                  });
+                   
+                  showChatById(allChats, key)
+                });
+       }
+       
+       catch(e) {
+         lodingSean(false)
+         alertt(e, 'red')
+       }
+       
 }
 
 function showChatById(chats, key) {
@@ -159,6 +186,7 @@ function showChatById(chats, key) {
       top: document.getElementById("chatsD").scrollHeight,
       behavior: "smooth"
     });
+  
 }
 
 function showChat(name, img) {
@@ -183,4 +211,5 @@ function showChat(name, img) {
 
   document.querySelector('.ch-img').src = img;
   document.querySelector('.ch-name').innerHTML = name;
+  
 }

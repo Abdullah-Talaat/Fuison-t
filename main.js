@@ -54,7 +54,7 @@ async function upload() {
     try {
       const docRef = await db.collection('posts').add(newPost);
       console.log("Document written with ID: ", docRef.id);
-      fetchPosts(); // تحديث المنشورات بعد إضافة منشور جديد
+       // تحديث المنشورات بعد إضافة منشور جديد
       clearInput();
     } catch (error) {
       alertt("Error adding document: " + error, "red");
@@ -107,7 +107,7 @@ async function uploadim(){
       src: src,
       timestamp: firebase.firestore.FieldValue.serverTimestamp()});
         console.log("Document written with ID: ", docRef.id);
-        fetchPosts(); // تحديث المنشورات بعد إضافة منشور جديد
+         // تحديث المنشورات بعد إضافة منشور جديد
         clearInput();
       } catch (error) {
         alertt("Error adding document: " + error, "red");
@@ -146,7 +146,7 @@ sendComentBtn.onclick = function() {
           lodingSean(false);
           console.log("Comment added");
           showComent();
-          fetchPosts();
+          
           sendComent.value = "";
         })
         .catch((error) => {
@@ -205,93 +205,95 @@ function fetchPosts() {
   lodingSean(true);
 
   // إعادة تعيين مصفوفة المنشورات
-  posts = [];
-  poststt = [];
-  db.collection("posts").orderBy('date').get()
-    .then((querySnapshot) => {
-      lodingSean(false);
-      if (querySnapshot.empty) {
-        console.log("No posts found");
-      } else {
-        querySnapshot.forEach((doc) => {
-          let postData = doc.data();
-          postData.id = doc.id;
-          poststt.push(postData);
-        });
-for (let i = poststt.length - 1; i >= 0; i--) {
-          posts.push(poststt[i]);
-        }
-        showPost(posts);
+  
+
+    const collectionRef = db.collection("posts").orderBy('date');
+    
+    collectionRef.onSnapshot((querySnapshot) => {
+      posts = [];
+      poststt = [];
+      querySnapshot.forEach((doc) => {
+        let postData = doc.data();
+        postData.id = doc.id;
+        poststt.push(postData);
+      });
+      // تحديث واجهة المستخدم باستخدام البيانات الجديدة
+      for (let i = poststt.length - 1; i >= 0; i--) {
+        posts.push(poststt[i]);
       }
-    })
-    .catch((error) => {
-      lodingSean(false);
-      alertt("Error fetching documents: " + error, "red");
+      console.log("Current data: ", posts);
+      let newPosts = posts.filter(post => post.name === nameInput);
+      
+      showPost(newPosts, "postsPro");
+      
+      newPosts = [];
+      showPost(posts, "posts");
     });
+
 }
 document.addEventListener('DOMContentLoaded', (event) => {
   fetchPosts();
 });
 let imgDisplay;
 let trueDisplay = "flex";
-function post(i){
-  posts[i].src ? imgDisplay = "flex" : imgDisplay = "none";
-  posts[i].trueP ? trueDisplay = "flex" : trueDisplay = "none";
-  let comentsLength = posts[i].coments ? posts[i].coments.length : 0;
-  let colorDelete = posts[i].name === nameInput ? "#222" : "#444";
+function post(i, postObj) {
+  let imgDisplay = postObj.src ? "flex" : "none";
+  let trueDisplay = postObj.trueP ? "flex" : "none";
+  let comentsLength = postObj.coments ? postObj.coments.length : 0;
+  let colorDelete = postObj.name === nameInput ? "#222" : "#444";
   let deletePassword = colorDelete === "#222" ? true : false;
   return `
     <div class="nasher post">
         <div class="head-post">
           <div class="date-info">
-            <p class="date">${posts[i].date}</p>
+            <p class="date">${postObj.date}</p>
             <p class="material-symbols-outlined date-icon">calendar_month</p>
           </div>
-          <div class="pro-post"onclick="uAsPro('${posts[i].name}')" >
-            <p>${posts[i].name}</p>
+          <div class="pro-post" onclick="uAsPro('${postObj.name}')">
+            <p>${postObj.name}</p>
             <span class="material-symbols-outlined st" style="display:${trueDisplay}">check</span>
             <div class="pro-ccd">
-             <img load = "lazy" class="pro-cc" src="${posts[i].proUrl}" alt="">
+             <img load="lazy" class="pro-cc" src="${postObj.proUrl}" alt="">
             </div>       
-        </div>
-        </div>
-        <div class="post-info">
-          <p>${posts[i].bodyPost}</p>
-           <div class="imgp">
-             <img src="${posts[i].src}" alt="" style="display:${imgDisplay}">
           </div>
         </div>
-<div class="actions-btns">
-                        <button class="delete-btn" style="background: ${colorDelete}" 
-                                onclick="deletePost('${posts[i].id}', '${deletePassword}')">
-                          <p>delete</p> 
-                          <span  class="material-symbols-outlined">delete</span>
-                        </button>
-            <button class="com-btn" onclick="com(${i})" style="background: #222">
-              <p id="lnn">${comentsLength}</p>
-              <span  class="material-symbols-outlined">comment</span>
-            </button>
-            <button onclick="likee(${i})" class="like-btn">
-              <p id="lnn">${posts[i].likes}</p>
-              <span  class="material-symbols-outlined">thumb_up</span>
-            </button>
+        <div class="post-info">
+          <p>${postObj.bodyPost}</p>
+           <div class="imgp">
+             <img src="${postObj.src}" alt="" style="display:${imgDisplay}">
+          </div>
+        </div>
+        <div class="actions-btns">
+          <button class="delete-btn" style="background: ${colorDelete}" 
+                  onclick="deletePost('${postObj.id}', '${deletePassword}')">
+            <p>delete</p> 
+            <span class="material-symbols-outlined">delete</span>
+          </button>
+          <button class="com-btn" onclick="com(${i})" style="background: #222">
+            <p id="lnn">${comentsLength}</p>
+            <span class="material-symbols-outlined">comment</span>
+          </button>
+          <button onclick="likee(${i})" class="like-btn">
+            <p id="lnn">${postObj.likes}</p>
+            <span class="material-symbols-outlined">thumb_up</span>
+          </button>
         </div>
       </div>
       `;
 }
-function showPost(posts) {
+
+function showPost(posts, e) {
   let postn = "";
-  for (let i = 0; i < posts.length; i++){
-    postn += post(i);
+  for (let i = 0; i < posts.length; i++) {
+    postn += post(i, posts[i]);
   }
-  /*
-    -deletePost✅
-    -com✅
-    -likee✅
-  */
-  document.getElementById("posts").innerHTML = postn;
+  document.getElementById(e).innerHTML = postn;
 }
 
+// مثال على كيفية استخدام showPost
+let filteredPosts = posts.filter(post => post.name === nameInput);
+console.log(filteredPosts); // تحقق من المحتويات هنا
+showPost(filteredPosts, "postsProU");
 function clearInput() {
   narInp.value = "";
   narInpm.value = "";
@@ -306,6 +308,7 @@ function com(index) {
   searchere(inputSs.value);
 }
 
+
 function deletePost(postId, password) {
   console.log(password)
   if(password == "true" || nameInput == "Fusion"){
@@ -315,7 +318,7 @@ function deletePost(postId, password) {
           .then(() => {
             lodingSean(false);
             alert("Document successfully deleted!");
-            fetchPosts();
+            
             searchere(inputSs.value);
           })
           .catch((error) => {
@@ -334,7 +337,7 @@ function deletePostt(postId){
       .then(() => {
         lodingSean(false);
         alert("Document successfully deleted!");
-        fetchPosts();
+        
       })
       .catch((error) => {
         lodingSean(false);
@@ -375,7 +378,7 @@ async function likee(postIndex) {
 
     console.log("Document successfully updated!");
     // تحديث العرض بعد التعديل
-    fetchPosts();
+    
     searchere(inputSs.value);
   } catch (error) {
     alertt(`Error: ${error}`, "red");
@@ -462,7 +465,7 @@ function searchere(value) {
         }
       }
       if (foundOpject) {
-        document.getElementById("postsSsearch").innerHTML = searchPost;
+        document.getElementById("postsSsearch").innerHTML = searchPost
       } else {
         document.getElementById("postsSsearch").innerHTML = '<p class="p-nan">لا توجد نتائج مطابقة للبحث</p>';
       }
